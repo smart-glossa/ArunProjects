@@ -71,17 +71,17 @@ $(document).ready(function() {
 
     $(document).on("click", ".delete", function() {
 	// If user not confirmed, then dont execute, just return back.
- if (!confirm(" Delete Are you sure?")) {
-   return;
-}
-var tag = $(this).parent().parent();
-var billno = tag.children(".billno")[0].innerHTML;
-var url = "/arun/bill?operation=delete&billno=" + billno;
-$.ajax({
+   if (!confirm(" Delete Are you sure?")) {
+     return;
+ }
+ var tag = $(this).parent().parent();
+ var billno = tag.children(".billno")[0].innerHTML;
+ var url = "/arun/bill?operation=delete&billno=" + billno;
+ $.ajax({
     url: url,
     type: 'POST'
 }).done(function(result) {
-   tag.remove();
+ tag.remove();
 }).fail(function(result) {
     console.log(result)
 });
@@ -157,8 +157,8 @@ $.ajax({
             type: 'POST'
         })
         .done(function(result) {
-           result = JSON.parse(result);
-           if (result.status === 1) {
+         result = JSON.parse(result);
+         if (result.status === 1) {
             alert("Updated SuccessFully");
             $('#billno').val("");
             $('#sales').val("");
@@ -216,12 +216,12 @@ $.ajax({
       var td=$(this).parent();
       var tr=td.parent();
       if(key.which==40){
-         tr.next().children().children("#submit").focus();
-     }
-     if(key.which==38){
-         tr.prev().children().children("#prin").foucs();
-     }
- })
+       tr.next().children().children("#submit").focus();
+   }
+   if(key.which==38){
+       tr.prev().children().children("#prin").foucs();
+   }
+})
     $('#submit').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13'){
@@ -240,7 +240,7 @@ $.ajax({
     })
   //called when key is pressed in textbox not allowed char..
   $(".chars").keypress(function (e) {
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+   if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
           //display error message
           $("#errmsg").html("Please type Only Numbers.. ").show().fadeOut(4000);
           return false;
