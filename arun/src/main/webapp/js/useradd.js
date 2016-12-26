@@ -202,9 +202,9 @@ function billdetails() {
 	+ '<table class="ss">'
 	+  '<span id="errmsg"></span>'
 	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="billno"  placeholder="BillNo.."></td></tr>'
-	+ '<tr><td>SalesAmount<span>*</span>:</td> <td><input type=text id="sales" class="chars" placeholder="SalesAmount.."></td></tr>'
-	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paid" class="chars" placeholder="PaidAmount.."></td></tr>'
-	+ '<tr><td>PrincipleAmount<span>*</span>:</td><td> <input type=text id="principle" class="chars" placeholder="PrincipleAmount.."></td></tr>'
+	+ '<tr><td>SalesAmount<span>*</span>:</td> <td><input type=text id="sales" class="chars" placeholder="SalesAmount.." class="chars"></td></tr>'
+	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paid" class="chars" placeholder="PaidAmount.." class="chars"></td></tr>'
+	+ '<tr><td>PrincipleAmount<span>*</span>:</td><td> <input type=text id="principle" class="chars" placeholder="PrincipleAmount.." class="chars"></td></tr>'
 	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
 	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
 	

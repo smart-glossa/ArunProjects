@@ -25,7 +25,9 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		String url = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" + BillConstant.DATABASE_NAME;
+		 String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
+		 BillConstant.DATABASE_NAME;
+		//String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {
@@ -51,7 +53,7 @@ public class BillServlet extends HttpServlet {
 			}
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.USERNAME);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.USERNAME);
 				Statement statement = connection.createStatement();
 				String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values("
 						+ billno + "," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex
@@ -71,7 +73,7 @@ public class BillServlet extends HttpServlet {
 
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = connection.createStatement();
 				String querys = "select * from bill where billno=" + billno;
 				ResultSet rs = statement.executeQuery(querys);
@@ -134,7 +136,7 @@ public class BillServlet extends HttpServlet {
 			int billno = Integer.parseInt(request.getParameter("billno"));
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection con = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = con.createStatement();
 				String query = "select * from bill where billno=" + billno + "";
 				ResultSet rs = statement.executeQuery(query);
@@ -164,7 +166,7 @@ public class BillServlet extends HttpServlet {
 			JSONArray all = new JSONArray();
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = connection.createStatement();
 				String query = "select * from bill";
 				ResultSet rs = statement.executeQuery(query);
@@ -193,7 +195,7 @@ public class BillServlet extends HttpServlet {
 			int billno = Integer.parseInt(request.getParameter("billno"));
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement stat = connection.createStatement();
 				String query = "delete from bill where billno=" + billno + "";
 				stat.execute(query);
@@ -210,7 +212,7 @@ public class BillServlet extends HttpServlet {
 			String pass = request.getParameter("password");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection cnnection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection cnnection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = cnnection.createStatement();
 				String query = "insert into reg(name,user,password)values('" + name + "','" + user + "','" + pass
 						+ "')";
@@ -228,7 +230,7 @@ public class BillServlet extends HttpServlet {
 			String pass = request.getParameter("pass");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = connection.createStatement();
 				String query = "select user from reg where user='" + user + "' AND password='" + pass + "'";
 				ResultSet rs = statement.executeQuery(query);
@@ -251,7 +253,7 @@ public class BillServlet extends HttpServlet {
 			JSONArray val = new JSONArray();
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = connection.createStatement();
 				String query = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
 				ResultSet rs = statement.executeQuery(query);
@@ -277,7 +279,7 @@ public class BillServlet extends HttpServlet {
 			JSONArray list = new JSONArray();
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement stat = connection.createStatement();
 				String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
 				ResultSet res = stat.executeQuery(qry);
@@ -287,13 +289,12 @@ public class BillServlet extends HttpServlet {
 					tots.put("paid", res.getString(2));
 					tots.put("prin", res.getString(3));
 					tots.put("credit", res.getString(4));
-					tots.put("tot", res.getString(5));
-					int shotage = res.getInt(6);
-					int exx = res.getInt(7);
-					if (shotage < exx) {
-						tots.put("shortage", shotage);
+					int shotage = res.getInt(5);
+					int exx = res.getInt(6);
+					if (exx< shotage ) {
+						tots.put("Shortage", shotage);
 					} else {
-						tots.put("excess", exx);
+						tots.put("Excess", exx);
 					}
 					list.put(tots);
 				}
@@ -309,7 +310,7 @@ public class BillServlet extends HttpServlet {
 			JSONObject usern = new JSONObject();
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(url, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement stat = connection.createStatement();
 				String queryname = "select user from reg where user='" + usname + "'";
 				ResultSet rst = stat.executeQuery(queryname);
