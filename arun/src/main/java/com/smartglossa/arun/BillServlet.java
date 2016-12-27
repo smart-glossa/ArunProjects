@@ -140,12 +140,12 @@ public class BillServlet extends HttpServlet {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = con.createStatement();
-				String query = "select * from bill where billno=" + billno + "";
+				String query = "select * from bill where billno='" + billno + "'";
 				ResultSet rs = statement.executeQuery(query);
 				// System.out.println("welcome" + rs);
 				if (rs.next()) {
 
-					one.put("billNO", rs.getInt(1));
+					one.put("billNO", rs.getString(1));
 					one.put("sales", rs.getInt(2));
 					one.put("paid", rs.getInt(3));
 					one.put("prin", rs.getInt(4));
@@ -174,7 +174,7 @@ public class BillServlet extends HttpServlet {
 				ResultSet rs = statement.executeQuery(query);
 				while (rs.next()) {
 					JSONObject getall = new JSONObject();
-					getall.put("billNO", rs.getInt(1));
+					getall.put("billNO", rs.getString(1));
 					getall.put("sales", rs.getInt(2));
 					getall.put("paid", rs.getInt(3));
 					getall.put("prin", rs.getInt(4));
@@ -194,12 +194,13 @@ public class BillServlet extends HttpServlet {
 			response.getWriter().print(all);
 		} else if (operation.equals("delete")) {
 			JSONObject del = new JSONObject();
-			int billno = Integer.parseInt(request.getParameter("billno"));
+			//int billno = Integer.parseInt(request.getParameter("billno"));
+			String billno=request.getParameter("billno");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement stat = connection.createStatement();
-				String query = "delete from bill where billno=" + billno + "";
+				String query = "delete from bill where billno='" + billno + "'";
 				stat.execute(query);
 				del.put("status", 1);
 			} catch (Exception e) {
