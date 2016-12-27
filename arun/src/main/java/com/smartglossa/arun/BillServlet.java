@@ -25,8 +25,9 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" + BillConstant.DATABASE_NAME;
-		// String URL = "jdbc:mysql://localhost:3306/arun";
+		 String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
+		 BillConstant.DATABASE_NAME;
+		//String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {
@@ -68,7 +69,7 @@ public class BillServlet extends HttpServlet {
 			response.getWriter().print(bill);
 		} else if (operation.equals("update")) {
 			JSONObject update = new JSONObject();
-			int billno = Integer.parseInt(request.getParameter("billno"));
+			String billno = request.getParameter("billno");
 
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
@@ -91,10 +92,10 @@ public class BillServlet extends HttpServlet {
 					String cdate = rs.getString(9);
 					int tot = rs.getInt(10);
 					try {
-						String oquery = "insert into oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
-								+ bilno + "','" + sal + "'," + paids + "" + "," + prins + "," + cred + "," + shor + ","
-								+ exs + ",'" + dates + "','" + cdate + "'," + tot + ")";
-						statement.execute(oquery);
+						String query = "insert into oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
+								+ bilno + "'," + sal + "," + paids + "," + prins + "," + cred + "," + shor + "," + exs
+								+ ",'" + dates + "','" + cdate + "'," + tot + ")";
+						statement.executeUpdate(query);
 						int salesamt = Integer.parseInt(request.getParameter("sales"));
 						int paid = Integer.parseInt(request.getParameter("paid"));
 						int prple = Integer.parseInt(request.getParameter("principle"));
@@ -116,23 +117,25 @@ public class BillServlet extends HttpServlet {
 						}
 						String query2 = "update bill set sales=" + salesamt + ",paid=" + paid + ",prin=" + prple
 								+ ",credit=" + credit + ",shortt=" + shortt + ",ex=" + ex + ",dates='" + date
-								+ "' where billno=" + billno + "";
+								+ "' where billno='" + billno + "'";
 						statement.execute(query2);
-
+						update.put("status", 1);
 					} catch (Exception e) {
+						e.printStackTrace();
+						update.put("status", 0);
 					}
 
 				}
 				update.put("status", 1);
 			} catch (Exception e) {
 				update.put("status", 0);
-
 				e.printStackTrace();
 			}
 			response.getWriter().print(update);
 		} else if (operation.equals("getOne")) {
 			JSONObject one = new JSONObject();
-			int billno = Integer.parseInt(request.getParameter("billno"));
+			// int billno = Integer.parseInt(request.getParameter("billno"));
+			String billno = request.getParameter("billno");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);

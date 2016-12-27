@@ -151,7 +151,7 @@ $(document).ready(function() {
         	return;
         	
         }
-        var url = "/arun/bill?operation=update&billno=" + billno + "&sales=" + sales + "&paid=" + paid + "&principle=" + prin+",&date="+date;
+        var url = "/arun/bill?operation=update&billno=" + billno + "&sales=" + sales + "&paid=" + paid + "&principle=" + prin+"&date="+date;
         $.ajax({
             url: url,
             type: 'POST'
