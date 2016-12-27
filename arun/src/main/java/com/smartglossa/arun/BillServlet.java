@@ -25,9 +25,8 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		 String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
-		 BillConstant.DATABASE_NAME;
-		//String URL = "jdbc:mysql://localhost:3306/arun";
+		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" + BillConstant.DATABASE_NAME;
+		// String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {
@@ -291,7 +290,7 @@ public class BillServlet extends HttpServlet {
 					tots.put("credit", res.getString(4));
 					int shotage = res.getInt(5);
 					int exx = res.getInt(6);
-					if (exx< shotage ) {
+					if (exx < shotage) {
 						tots.put("Shortage", shotage);
 					} else {
 						tots.put("Excess", exx);
@@ -325,6 +324,34 @@ public class BillServlet extends HttpServlet {
 
 			}
 			response.getWriter().print(usern);
+		} else if (operation.equals("oldbill")) {
+			JSONArray old = new JSONArray();
+			try {
+				Class.forName(BillConstant.MYSQL_DRIVER);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
+				Statement statement = connection.createStatement();
+				String query = "select * from oldbill";
+				ResultSet res = statement.executeQuery(query);
+				while (res.next()) {
+					JSONObject obj = new JSONObject();
+					obj.put("billno ", res.getString(1));
+					obj.put("sales", res.getInt(2));
+					obj.put("paid", res.getInt(3));
+					obj.put("prin", res.getInt(4));
+					obj.put("credit", res.getInt(5));
+					obj.put("short", res.getInt(6));
+					obj.put("ex", res.getInt(7));
+					obj.put("dates", res.getInt(8));
+					obj.put("cdate", res.getInt(9));
+					obj.put("status", 1);
+					old.put(obj);
+				}
+			} catch (Exception e) {
+				JSONObject error = new JSONObject();
+				error.put("status", 0);
+				old.put(error);
+			}
+			response.getWriter().print(old);
 		}
 
 	}
