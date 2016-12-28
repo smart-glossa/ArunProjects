@@ -25,9 +25,8 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		 String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
-		 BillConstant.DATABASE_NAME;
-		//String URL = "jdbc:mysql://localhost:3306/arun";
+		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" + BillConstant.DATABASE_NAME;
+		// String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {
@@ -53,7 +52,7 @@ public class BillServlet extends HttpServlet {
 			}
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.USERNAME);
+				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = connection.createStatement();
 				String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values("
 						+ billno + "," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex
@@ -194,8 +193,8 @@ public class BillServlet extends HttpServlet {
 			response.getWriter().print(all);
 		} else if (operation.equals("delete")) {
 			JSONObject del = new JSONObject();
-			//int billno = Integer.parseInt(request.getParameter("billno"));
-			String billno=request.getParameter("billno");
+			// int billno = Integer.parseInt(request.getParameter("billno"));
+			String billno = request.getParameter("billno");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
@@ -338,15 +337,15 @@ public class BillServlet extends HttpServlet {
 				ResultSet res = statement.executeQuery(query);
 				while (res.next()) {
 					JSONObject obj = new JSONObject();
-					obj.put("billno ", res.getString(1));
-					obj.put("sales", res.getInt(2));
-					obj.put("paid", res.getInt(3));
-					obj.put("prin", res.getInt(4));
-					obj.put("credit", res.getInt(5));
-					obj.put("short", res.getInt(6));
+					obj.put("bno ", res.getString(1));
+					obj.put("sale", res.getInt(2));
+					obj.put("paids", res.getInt(3));
+					obj.put("prins", res.getInt(4));
+					obj.put("cred", res.getInt(5));
+					obj.put("shor", res.getInt(6));
 					obj.put("ex", res.getInt(7));
-					obj.put("dates", res.getInt(8));
-					obj.put("cdate", res.getInt(9));
+					obj.put("date", res.getInt(8));
+					obj.put("cdates", res.getInt(9));
 					obj.put("status", 1);
 					old.put(obj);
 				}
