@@ -234,3 +234,21 @@ function menus() {
 	div.innerHTML = strVar;
 	return div;
 }
+function datestable(){
+	var div = document.createElement("div");
+	div.className = "b";
+	var html = '<h3 class="fn">Add Bill Details</h3>'
+	+ '<table class="ss">'
+	+  '<span id="errmsg"></span>'
+	
+	+ '<tr><td>From<span>*</span>:</td> <td><input type=date id="sales" ></td></tr>'
+	+ '<tr><td>ToDate<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
+	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
+	
+	+ '<button id="update">UPDATE</button></td><tr>'
+	+'</table>';
+	
+	div.innerHTML = html;
+	return div;
+	
+}

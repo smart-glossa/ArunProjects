@@ -35,6 +35,7 @@ function displaybill() {
 
 	function displaybills() {
 		var url = "/arun/bill?operation=total";
+		
 		var imgURL = "img/1.jpg";
 		$.ajax({
 			url : url,
@@ -48,7 +49,7 @@ function displaybill() {
 				if(result!="undefined"){
 					for (var i = 0; i < array.length; i++) {
 						
-						query += "<td>" + array[i].sales + "</td>";
+						query += "<td>.html<abbr title=" + array[i].sale + ">" + array[i].sales + "</td>";
 						query += "<td>" + array[i].paid + "</td>";
 						query += "<td>" + array[i].prin + "</td>";
 						query += "<td>" + array[i].credit + "</td>";
