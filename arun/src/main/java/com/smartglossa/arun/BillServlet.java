@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.naming.directory.DirContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -363,13 +364,33 @@ public class BillServlet extends HttpServlet {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection conn = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement stat = conn.createStatement();
-				String query = "select sales,paid,credit from bill where billno=" + bno;
+				String query = "select  sales,paid,credit from bill where billno=" + bno;
 				ResultSet rs = stat.executeQuery(query);
 				if (rs.next()) {
-					cred.put("sales", rs.getInt(1));
-					cred.put("paid", rs.getInt(2));
-					cred.put("credit", rs.getInt(3));
-					cred.put("status", 1);
+					//String bills = rs.getString(1);
+					int sales = rs.getInt(1);
+					int paid = rs.getInt(2);
+					int credit = rs.getInt(3);
+					int paids = Integer.parseInt(request.getParameter("paids"));
+					int paidss = 0;
+					int newcrt = 0;
+					paidss = paid + paids;
+					newcrt = credit - paids;
+
+					try {
+						Class.forName(BillConstant.MYSQL_DRIVER);
+						Connection conns = DriverManager.getConnection(URL, BillConstant.USERNAME,
+								BillConstant.PASSWORD);
+						Statement stats = conns.createStatement();
+						String qry = "update paid=" + paidss + ",credit=" + newcrt + " set bill where billno=" + bno;
+						stats.execute(qry);
+						cred.put("status", 1);
+
+					} catch (Exception e) {
+						cred.put("status", 0);
+						e.printStackTrace();
+						cred.put("message", e.getMessage());
+					}
 				}
 			} catch (Exception e) {
 				cred.put("status", 0);
@@ -377,15 +398,7 @@ public class BillServlet extends HttpServlet {
 				cred.put("Message", e.getMessage());
 			}
 			response.getWriter().print(cred);
-		}else if(operation.equals("creditupdate")){
-			String bnos=request.getParameter("billnos");
-			//int sales=Integer.parseInt(request.getParameter("sales"));
-			//int paid=Integer.parseInt(request.getParameter("paid"));
-			//int crd=Integer.parseInt(request.getParameter("credit"));
-			//int paids=Integer.parseInt(request.getParameter("paids"));
-			
 		}
-
 	}
 
 }
