@@ -382,7 +382,7 @@ public class BillServlet extends HttpServlet {
 						Connection conns = DriverManager.getConnection(URL, BillConstant.USERNAME,
 								BillConstant.PASSWORD);
 						Statement stats = conns.createStatement();
-						String qry = "update paid=" + paidss + ",credit=" + newcrt + " set bill where billno=" + bno;
+						String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + " where billno=" + bno;
 						stats.execute(qry);
 						cred.put("status", 1);
 
