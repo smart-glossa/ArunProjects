@@ -364,26 +364,35 @@ public class BillServlet extends HttpServlet {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection conn = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement stat = conn.createStatement();
-				String query = "select  sales,paid,credit from bill where billno=" + bno;
+				String query = "select  * from bill where billno=" + bno;
 				ResultSet rs = stat.executeQuery(query);
 				if (rs.next()) {
 					//String bills = rs.getString(1);
-					int sales = rs.getInt(1);
-					int paid = rs.getInt(2);
-					int credit = rs.getInt(3);
-					int paids = Integer.parseInt(request.getParameter("paids"));
-					int paidss = 0;
-					int newcrt = 0;
-					paidss = paid + paids;
-					newcrt = credit - paids;
+					String bilno = rs.getString(1);
+					int sal = rs.getInt(2);
+					int paid = rs.getInt(3);
+					int prins = rs.getInt(4);
+					int crd = rs.getInt(5);
+					int shor = rs.getInt(6);
+					int exs = rs.getInt(7);
+					String dates = rs.getString(8);
+					String cdate = rs.getString(9);
+					int tot = rs.getInt(10);
+					
 
 					try {
-						Class.forName(BillConstant.MYSQL_DRIVER);
-						Connection conns = DriverManager.getConnection(URL, BillConstant.USERNAME,
-								BillConstant.PASSWORD);
-						Statement stats = conns.createStatement();
+							String quey = "insert into oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
+									+ bilno + "'," + sal + "," + paid + "," + prins + "," + crd + "," + shor + "," + exs
+									+ ",'" + dates + "','" + cdate + "'," + tot + ")";
+							stat.executeUpdate(quey);
+							int paids = Integer.parseInt(request.getParameter("paids"));
+							int paidss = 0;
+							int newcrt = 0;
+							paidss = paid+ paids;
+							newcrt = crd - paids;
+						//Statement stats = conn.createStatement();
 						String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + " where billno=" + bno;
-						stats.execute(qry);
+						stat.execute(qry);
 						cred.put("status", 1);
 
 					} catch (Exception e) {
