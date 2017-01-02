@@ -10,3 +10,16 @@ function hide() {
 	}
 	return false;
 }
+//paid Amount//
+function piad() {
+	if (document.getElementById('paid').style.display == 'none') {
+		document.getElementById('paid').style.display = 'block';
+	}
+	return false;
+}
+function amount() {
+	if (document.getElementById('paid').style.display == 'block') {
+		document.getElementById('paid').style.display = 'none';
+	}
+	return false;
+}

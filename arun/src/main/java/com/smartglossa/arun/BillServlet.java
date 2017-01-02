@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.naming.directory.DirContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +25,9 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		 String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
-		 BillConstant.DATABASE_NAME;
-		//String URL = "jdbc:mysql://localhost:3306/arun";
+		 //String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
+		 //BillConstant.DATABASE_NAME;
+		String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {

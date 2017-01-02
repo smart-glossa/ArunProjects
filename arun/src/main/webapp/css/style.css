@@ -1,5 +1,4 @@
 @CHARSET "ISO-8859-1";
-
 .b{
 	background-color:#CEF6E3;
 	width:850px;
@@ -85,6 +84,7 @@ li:hover ul a:hover {
 
 li ul {
 	display: none;
+	 
 }
 
 li ul li {

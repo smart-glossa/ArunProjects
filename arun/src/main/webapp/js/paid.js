@@ -1,15 +1,4 @@
 $(document).ready(function() {
-	if (getCookie("user") != undefined) {
-		$("body")[0].appendChild(menu());
-		$("body")[0].appendChild(menus());
-		applyUser();
-		$($(".mainArea")[0]).remove();
-		var div = document.createElement("div");
-		div.className = "mainArea";
-		$("body")[0].appendChild(div);
-		$(".mainArea")[0].appendChild( billdetails());
-		$(".mainArea")[0].appendChild(totalbill());	
-	}
 	$(document).on("click", "#psubmit", function(key) {
 		var billno = $("#billno").val();
 		var paids = $("#paids").val();
@@ -74,33 +63,3 @@ $(document).ready(function() {
 	  }
 	});
 });
-function paidAmount() {
-	var div = document.createElement("div");
-	div.className = "paid";
-	var html = '<h3 class="fn">PaidAmount</h3>'
-	+ '<table class="ss">'
-	+  '<span id="errmsg"></span>'
-	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="billno"  placeholder="BillNo.."></td></tr>'
-	+ '<tr><td>SalesAmount<span>*</span>:</td> <td><input type=text id="sales"  placeholder="SalesAmount.." class="chars" readOnly></td></tr>'
-	+ '<tr><td>AllreadyPaidAmount<span>*</span>:</td><td> <input type=text id="paid"  placeholder="PaidAmount.." class="chars" readOnly></td></tr>'
-	+ '<tr><td>CreditAmount<span>*</span>:</td><td> <input type=text id="credit"  placeholder="PaidAmount.." class="chars" readOnly></td></tr>'
-	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paids" class="chars" placeholder="PrincipleAmount.." class="chars"></td></tr>'
-	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
-	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
-	
-	+ '<button id="update">UPDATE</button></td><tr>'
-	+'</table>';
-	
-	div.innerHTML = html;
-	return div;
-}
-function menuss() {
-	var div = document.createElement("div");
-	div.className = "menuBars";
-	var strVar="";
-	strVar += "<ul id=\"menu\">";
-	strVar += "  <li><div id=\"opener\" onclick=\"displaybill()\"><a href=\"#\" onclick=\"return show();\"><img src=\"img/7.png\">PaidAmount</a></div><\/li>";
-	strVar += "<\/ul>";
-	div.innerHTML = strVar;
-	return div;
-}

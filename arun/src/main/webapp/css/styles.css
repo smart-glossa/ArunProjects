@@ -9,6 +9,7 @@
 	left:150px;
 	z-index: 2;
 }
+
 .h {
 	position:absolute;
 	top: 7px;
@@ -22,4 +23,19 @@
 .fn{
 	position:absolute;
 	left:580px;  
+}
+.p{
+	top:500px;
+	left:380px;
+	position:absolute;  
+}
+.fns{
+	bottom:350px;
+	position:absolute;
+	left:200px;  
+}
+.paids{
+	top:130px;
+	left:30px;
+	position: absolute;
 }

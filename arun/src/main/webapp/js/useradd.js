@@ -2,12 +2,14 @@ $(document).ready(function() {
 	if (getCookie("user") != undefined) {
 		$("body")[0].appendChild(menu());
 		$("body")[0].appendChild(menus());
+		$("body")[0].appendChild(menuss());
 		applyUser();
 		$($(".mainArea")[0]).remove();
 		var div = document.createElement("div");
 		div.className = "mainArea";
 		$("body")[0].appendChild(div);
-		$(".mainArea")[0].appendChild( billdetails());
+		$(".mainArea")[0].appendChild(paidAmount());
+		$(".mainArea")[0].appendChild(billdetails());
 		$(".mainArea")[0].appendChild(totalbill());	
 	}
 	$(document).on("click", "#signin", function(key) {
@@ -140,11 +142,13 @@ $(document).ready(function() {
 					document.cookie = "user=" + user;
 					$("body")[0].appendChild(menu());
 					$("body")[0].appendChild(menus());
+					$("body")[0].appendChild(menuss());
 					applyUser();
 					$($(".mainArea")[0]).remove();
 					var div = document.createElement("div");
 					div.className = "mainArea";
 					$("body")[0].appendChild(div);
+					$(".mainArea")[0].appendChild(paidAmount());
 					$(".mainArea")[0].appendChild(billdetails());
 					$(".mainArea")[0].appendChild(totalbill());	
 					
@@ -214,6 +218,36 @@ function billdetails() {
 	div.innerHTML = html;
 	return div;
 }
+function paidAmount(){
+	var div = document.createElement("div");
+	div.className = "p";
+	var html = '<h3 class="fns">PaidAmount</h3>'
+	+ '<table class="pamount">'
+	+  '<span id="errmsg"></span>'
+	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="bilno"  placeholder="BillNo.."></td></tr>'
+	+ '<tr><td>SalesAmount<span>*</span>:</td> <td><input type=text id="sale"  placeholder="SalesAmount.." class="chars" readOnly></td></tr>'
+	+ '<tr><td>AllreadyPaidAmount<span>*</span>:</td><td> <input type=text id="paids"  placeholder="PaidAmount.." class="chars" readOnly></td></tr>'
+	+ '<tr><td>CreditAmount<span>*</span>:</td><td> <input type=text id="credit"  placeholder="PaidAmount.." class="chars" readOnly></td></tr>'
+	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paidss" class="chars" placeholder="PrincipleAmount.." class="chars"></td></tr>'
+	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
+	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
+	
+	+ '<button id="update">UPDATE</button></td><tr>'
+	+'</table>';
+	
+	div.innerHTML = html;
+	return div;
+	  }
+function menuss() {
+	var div = document.createElement("div");
+	div.className = "paids";
+	var paidVar="";
+	paidVar += "<ul id=\"menu\">";
+	paidVar += "<li><div id=\"opener\" onclick=\"totalbill()\"><a href=\"#\" onclick=\"return show();\"><img src=\"img/6.png\" width=\"20px\">PaidAmount<\/a></div><\/li>";
+	paidVar += "<\/ul>";
+	div.innerHTML = paidVar;
+	return div;
+}
 function menu() {
 	var div = document.createElement("div");
 	div.className = "menuBar";
@@ -229,11 +263,12 @@ function menus() {
 	div.className = "menuBars";
 	var strVar="";
 	strVar += "<ul id=\"menu\">";
-	strVar += "  <li><div id=\"opener\" onclick=\"displaybill()\"><a href=\"#\" onclick=\"return show();\"><img src=\"img/home.png\">AllBillDetail</a></div><\/li>";
+	strVar += "<li><div id=\"opener\" onclick=\"displaybill()\"><a href=\"#\" onclick=\"return show();\"><img src=\"img/home.png\">AllBillDetail</a></div><\/li>";
 	strVar += "<\/ul>";
 	div.innerHTML = strVar;
 	return div;
 }
+
 function datestable(){
 	var div = document.createElement("div");
 	div.className = "b";
