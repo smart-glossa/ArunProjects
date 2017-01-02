@@ -91,7 +91,7 @@ function displaybill() {
 				}
 			}
 			query += "</table>"
-			$(".total")[0].innerHTML = query;
+			$("#total")[0].innerHTML = query;
 
 		}).fail(function() {
 

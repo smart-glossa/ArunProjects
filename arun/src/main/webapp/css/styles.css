@@ -9,8 +9,22 @@
 	left:150px;
 	z-index: 2;
 }
+.llpaid {
+	background-color: #CEF6E3;
+	width:940px;
+	padding-left:40px;
+	position:absolute;
+	top:380px;
+	left:150px;
+	z-index: 2;
+}
 
 .h {
+	position:absolute;
+	top: 7px;
+	left:950px; 
+}
+.sh {
 	position:absolute;
 	top: 7px;
 	left:950px; 

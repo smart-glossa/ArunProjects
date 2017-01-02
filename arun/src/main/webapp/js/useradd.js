@@ -10,7 +10,7 @@ $(document).ready(function() {
 		$("body")[0].appendChild(div);
 		$(".mainArea")[0].appendChild(paidAmount());
 		$(".mainArea")[0].appendChild(billdetails());
-		$(".mainArea")[0].appendChild(totalbill());	
+		//$(".mainArea")[0].appendChild(totalbill());	
 	}
 	$(document).on("click", "#signin", function(key) {
 		var name = $("#name").val();
@@ -150,7 +150,7 @@ $(document).ready(function() {
 					$("body")[0].appendChild(div);
 					$(".mainArea")[0].appendChild(paidAmount());
 					$(".mainArea")[0].appendChild(billdetails());
-					$(".mainArea")[0].appendChild(totalbill());	
+					//$(".mainArea")[0].appendChild(totalbill());	
 					
 				} else {
 					//result = JSON.parse(result);
@@ -243,7 +243,7 @@ function menuss() {
 	div.className = "paids";
 	var paidVar="";
 	paidVar += "<ul id=\"menu\">";
-	paidVar += "<li><div id=\"opener\" onclick=\"totalbill()\"><a href=\"#\" onclick=\"return show();\"><img src=\"img/6.png\" width=\"20px\">PaidAmount<\/a></div><\/li>";
+	paidVar += "<li><div  onclick=\"totalbill()\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/6.png\" width=\"20px\">PaidAmount<\/a></div><\/li>";
 	paidVar += "<\/ul>";
 	div.innerHTML = paidVar;
 	return div;
