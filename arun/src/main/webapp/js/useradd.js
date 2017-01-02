@@ -3,6 +3,7 @@ $(document).ready(function() {
 		$("body")[0].appendChild(menu());
 		$("body")[0].appendChild(menus());
 		$("body")[0].appendChild(menuss());
+		$("body")[0].appendChild(dates());
 		applyUser();
 		$($(".mainArea")[0]).remove();
 		var div = document.createElement("div");
@@ -143,6 +144,7 @@ $(document).ready(function() {
 					$("body")[0].appendChild(menu());
 					$("body")[0].appendChild(menus());
 					$("body")[0].appendChild(menuss());
+					$("body")[0].appendChild(dates());
 					applyUser();
 					$($(".mainArea")[0]).remove();
 					var div = document.createElement("div");
@@ -224,15 +226,13 @@ function paidAmount(){
 	var html = '<h3 class="fns">PaidAmount</h3>'
 	+ '<table class="pamount">'
 	+  '<span id="errmsg"></span>'
-	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="billno"  placeholder="BillNo.."></td>'
-	+ '<td>SalesAmount<span>*</span>:</td> <td><input type=text id="sales"  placeholder="SalesAmount.." class="chars" readOnly></td></tr>'
-	+ '<tr><td>AllreadyPaidAmount<span>*</span>:</td><td> <input type=text id="paids"  placeholder="PaidAmount.." class="chars" readOnly></td>'
-	+ '<td>CreditAmount<span>*</span>:</td><td> <input type=text id="credit"  placeholder="PaidAmount.." class="chars" readOnly></td></tr>'
-	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paidss" class="chars" placeholder="PrincipleAmount.." class="chars"></td>'
-	+ '<td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
-	+ '<tr><td></td><td><button id="psubmit">SUBMIT</button>&nbsp;&nbsp;'
-	
-	+ '<button id="update">UPDATE</button></td><tr>'
+	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="bno"  placeholder="BillNo.."></td>'
+	+ '<td>SalesAmount<span>*</span>:</td> <td><input type=text id="sal"  placeholder="SalesAmount.." class="chars" readOnly></td></tr>'
+	+ '<tr><td>AllreadyPaidAmount<span>*</span>:</td><td> <input type=text id="pai"  placeholder="OldPaidAmount.." class="chars" readOnly></td>'
+	+ '<td>CreditAmount<span>*</span>:</td><td> <input type=text id="cred"  placeholder="CreditAmount.." class="chars" readOnly></td></tr>'
+	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paidss" class="chars" placeholder="PaidAmount.." class="chars"></td>'
+	+ '<td>Date<span>*</span>:</td><td> <input type=date id="dat" class="add"></td></tr>'
+	+ '<tr><td></td><td><button id="psubmit">SUBMIT</button>&nbsp;&nbsp;</td><tr>'
 	+'</table>';
 	
 	div.innerHTML = html;
@@ -243,7 +243,18 @@ function menuss() {
 	div.className = "paids";
 	var paidVar="";
 	paidVar += "<ul id=\"menu\">";
-	paidVar += "<li><div  onclick=\"totalbill()\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/6.png\" width=\"20px\">PaidAmount<\/a></div><\/li>";
+	paidVar += "<li><div  onclick=\"totalbill()\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/13.png\" width=\"20px\">TotalDetails<\/a></div><\/li>";
+	paidVar += "<\/ul>";
+	div.innerHTML = paidVar;
+	return div;
+}
+
+function dates() {
+	var div = document.createElement("div");
+	div.className = "dateweek";
+	var paidVar="";
+	paidVar += "<ul id=\"menu\">";
+	paidVar += "<li><div  onclick=\"\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/8.png\" width=\"20px\">Date&Week<\/a></div><\/li>";
 	paidVar += "<\/ul>";
 	div.innerHTML = paidVar;
 	return div;

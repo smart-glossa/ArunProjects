@@ -384,12 +384,14 @@ public class BillServlet extends HttpServlet {
 								+ ",'" + dates + "','" + cdate + "'," + tot + ")";
 						stat.executeUpdate(quey);
 						int paids = Integer.parseInt(request.getParameter("paids"));
+						String dat = request.getParameter("dat");
 						int paidss = 0;
 						int newcrt = 0;
 						paidss = paid + paids;
 						newcrt = crd - paids;
 						// Statement stats = conn.createStatement();
-						String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + " where billno=" + bno;
+						String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + ", dates='" + dat
+								+ "' where billno=" + bno;
 						stat.execute(qry);
 						cred.put("status", 1);
 
