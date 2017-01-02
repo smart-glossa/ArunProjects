@@ -10,9 +10,9 @@
 	z-index: 2;
 }
 .llpaid {
-	background-color: #CEF6E3;
-	width:940px;
-	padding-left:40px;
+	background-color:white;
+	width:700px;
+	padding-left:60px;
 	position:absolute;
 	top:380px;
 	left:150px;
@@ -26,8 +26,8 @@
 }
 .sh {
 	position:absolute;
-	top: 7px;
-	left:950px; 
+	top: 6px;
+	left:695px; 
 }
 .ss{
 	top:50px;
@@ -39,14 +39,14 @@
 	left:580px;  
 }
 .p{
-	top:500px;
-	left:380px;
+	top:460px;
+	left:300px;
 	position:absolute;  
 }
 .fns{
-	bottom:350px;
+	bottom:250px;
 	position:absolute;
-	left:200px;  
+	left:310px;  
 }
 .paids{
 	top:130px;
