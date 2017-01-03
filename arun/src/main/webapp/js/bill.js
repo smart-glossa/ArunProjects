@@ -74,7 +74,7 @@ $(document).ready(function() {
 }
 var tag = $(this).parent().parent();
 var billno = tag.children(".billno")[0].innerHTML;
-var url = "/arun/bill?operation=delete&billno=" + billno;
+var url = "/arun/bill?operation=delete&abillno=" + billno;
 $.ajax({
     url: url,
     type: 'POST'
@@ -113,34 +113,34 @@ $.ajax({
     }
 });
   $(document).on("click", "#update", function() {
-    var billno = $('#billno').val();
-    var sales=$('#sales').val();
-    var paid=$('#paid').val();
-    var prin = $('#principle').val();
+    var billno = $('#abillno').val();
+    var sales=$('#asales').val();
+    var paid=$('#apaid').val();
+    var prin = $('#aprinciple').val();
     var date=$('#date').val();
     if (billno == "") {
         alert("Please Enter BillNo..");
-        $("#billno").focus().css("outline-color", "#ff0000");
+        $("#abillno").focus().css("outline-color", "#ff0000");
         return;
     }
     if (sales === "") {
         alert("Please Enter From SalesAmount");
-        $("#sales").focus().css("outline-color", "#ff0000");
+        $("#asales").focus().css("outline-color", "#ff0000");
         return;
     }
     if (paid === "") {
         alert("Please Enter To PaidAmount");
-        $("#to").focus().css("outline-color", "#ff0000");
+        $("#apaid").focus().css("outline-color", "#ff0000");
         return;
     }
     if (prin === "") {
         alert("Please Enter PrincipleAmount");
-        $("#principle").focus().css("outline-color", "ff0000");
+        $("#aprinciple").focus().css("outline-color", "ff0000");
         return;
     }if(parseInt(paid)>parseInt(sales)){
         alert("principleAmount maximum value Please Change minimum value");
-        $("#sales").focus().css("outline-color","red");
-        $("#paid").focus().css("outline-color","red");
+        $("#asales").focus().css("outline-color","red");
+        $("#apaid").focus().css("outline-color","red");
         return;
     }
     if(date===""){
@@ -149,7 +149,7 @@ $.ajax({
        return;
        
    }
-   var url = "/arun/bill?operation=update&billno=" + billno + "&sales=" + sales + "&paid=" + paid + "&principle=" + prin+"&date="+date;
+   var url = "/arun/bill?operation=update&abillno=" + billno + "&asales=" + sales + "&apaid=" + paid + "&aprinciple=" + prin+"&date="+date;
    $.ajax({
     url: url,
     type: 'POST'
@@ -158,10 +158,10 @@ $.ajax({
        result = JSON.parse(result);
        if (result.status === 1) {
         alert("Updated SuccessFully");
-        $('#billno').val("");
-        $('#sales').val("");
-        $('#paid').val("");
-        $('#principle').val("");
+        $('#abillno').val("");
+        $('#asales').val("");
+        $('#apaid').val("");
+        $('#aprinciple').val("");
     } else {
         if (result.status === 0) {
             alert("Error occurs");
