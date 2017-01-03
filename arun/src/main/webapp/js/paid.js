@@ -1,16 +1,16 @@
 $(document).ready(function() {
 	$(document).on("click", "#psubmit", function(key) {
 		var billno = $("#bno").val();
-		var paids = $("#paidss").val();
+		var pais = $("#pais").val();
 		var dat=$('#dat').val()
 		if(billno===""){
 			alert("Please Enter BillNo..");
 			$("#billno").focus().css("outline-color","#ff0000");
 			return;
 		}
-		if(paids==""){
+		if(pais==""){
 			alert("Please Enter Your New PaidAmount..");
-			$("#paidss").focus().css("outline-color","#ff0000");
+			$("#pais").focus().css("outline-color","#ff0000");
 			return;
 		}
 		if(dat==""){
@@ -19,7 +19,7 @@ $(document).ready(function() {
 			return;
 		}
 		       
-        	   var url ="/arun/bill?operation=getcedit&billno=" +billno+ "&paids=" +paids+"&dates="+dat; 
+        	   var url ="/arun/bill?operation=getcedit&billno=" +billno+ "&paids=" +pais+"&dates="+dat; 
         	   $.ajax({
         	   	url : url,
         	   	type : 'POST'
@@ -68,8 +68,8 @@ $(document).ready(function() {
             });
         } else {
             $("#sales").val("");
-            $("#paid").val("");
-            $("#principle").val("");
+            $("#pai").val("");
+            $("#cred").val("");
         }
     });
     /*keyup and keydown*/

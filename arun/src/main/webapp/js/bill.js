@@ -3,38 +3,38 @@ $(document).ready(function() {
 	    	//postToServer("logout");
 	    	document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	    	window.location.href = '/arun/';
-	    });
+	    });     //http://localhost:8080/arun/bill?operation=add&abillno&asales=7878&apaid=500&aprinciple=454&date09/10/2000
   
   $(document).on("click","#submit",function(key) {
-    var billno = $('#billno').val();
-    var sales = $('#sales').val();
-    var paid = $('#paid').val();
-    var prin=$('#principle').val();
+    var billno = $('#abillno').val();
+    var sales = $('#asales').val();
+    var paid = $('#apaid').val();
+    var prin=$('#aprinciple').val();
     var date=$('#date').val();
     if (billno === "") {
         alert("Please Enter BillNo");
-        $("#billno").focus().css("outline-color", "#ff0000");
+        $("#abillno").focus().css("outline-color", "#ff0000");
         return;
     }
     if (sales === "") {
         alert("Please Enter Product sales");
-        $("#sales").focus().css("outline-color", "#ff0000");
+        $("#asales").focus().css("outline-color", "#ff0000");
         return;
     }
     if (paid === "") {
         alert("Please Enter paid");
-        $("#paid").focus().css("outline-color", "ff0000");
+        $("#apaid").focus().css("outline-color", "ff0000");
         return;
     }
     if (prin === "") {
         alert("Please Enter principle");
-        $("#principle").focus().css("outline-color", "ff0000");
+        $("#aprinciple").focus().css("outline-color", "ff0000");
         return;
     }
     if(parseInt(paid)>parseInt(sales)){
         alert("Please max val");
-        $("#sales").focus().css("outline-color","red");
-        $("#paid").focus().css("outline-color","red");
+        $("#asales").focus().css("outline-color","red");
+        $("#apaid").focus().css("outline-color","red");
         return;
     }
     if(date==""){
@@ -43,7 +43,7 @@ $(document).ready(function() {
        return;
    }
    
-   var url = "/arun/bill?operation=add&billno=" + billno + "&sales="+ sales + "&paid=" + paid + "&principle=" + prin+"&date="+date;
+   var url = "/arun/bill?operation=add&abillno=" + billno + "&asales="+ sales + "&apaid=" + paid + "&aprinciple=" + prin+"&date="+date;
    $.ajax({
     url: url,
     type: 'POST'
@@ -51,11 +51,10 @@ $(document).ready(function() {
     result =JSON.parse(result);
     if(result.status == 1) {
         alert("SuccessFully Added");
-        $('#billno').val("");
-        $('#sales').val("");
-        $('#paid').val("");
-        $('#principle').val("");
-               // displaybills();
+        $('#abillno').val("");
+        $('#asales').val("");
+        $('#apaid').val("");
+        $('#aprinciple').val("");
                totalbill() ;
            } else if(result.status == 0) {
             alert("Error occurs");
@@ -85,32 +84,32 @@ $.ajax({
     console.log(result)
 });
 })
-  $(document).on("keyup", "#billno", function() {
-    var billno = $('#billno').val();
+  $(document).on("keyup", "#abillno", function() {
+    var billno = $('#abillno').val();
     if (billno != "") {
-        var getUrl = "/arun/bill?operation=getOne&billno=" + billno;
+        var getUrl = "/arun/bill?operation=getOne&abillno=" + billno;
         $.ajax({
             url: getUrl,
             type: "POST"
         })
         .done(function(result) {
             result = JSON.parse(result);
-            var sales = result.sales;
-            var paid=result.paid;
-            var prin=result.prin;
+            var asales = result.sales;
+            var apaid=result.paid;
+            var aprin=result.prin;
                     //var date=result.date;
-                    $("#sales").val(sales);
-                    $("#paid").val(paid);
-                    $("#principle").val(prin);
+                    $("#asales").val(asales);
+                    $("#apaid").val(apaid);
+                    $("#aprinciple").val(aprin);
                     
                 })
         .fail(function(result) {
             alert("Some Errors Please Enter correct value");
         });
     } else {
-        $("#sales").val("");
-        $("#paid").val("");
-        $("#principle").val("");
+        $("#asales").val("");
+        $("#apaid").val("");
+        $("#aprinciple").val("");
     }
 });
   $(document).on("click", "#update", function() {

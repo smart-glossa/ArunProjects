@@ -25,16 +25,16 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
-		BillConstant.DATABASE_NAME;
-		//String URL = "jdbc:mysql://localhost:3306/arun";
+		//String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
+		//BillConstant.DATABASE_NAME;
+		String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {
-			int billno = Integer.parseInt(request.getParameter("billno"));
-			int salesamt = Integer.parseInt(request.getParameter("sales"));
-			int paid = Integer.parseInt(request.getParameter("paid"));
-			int prple = Integer.parseInt(request.getParameter("principle"));
+			String billno=request.getParameter("abillno");
+			int salesamt = Integer.parseInt(request.getParameter("asales"));
+			int paid = Integer.parseInt(request.getParameter("apaid"));
+			int prple = Integer.parseInt(request.getParameter("aprinciple"));
 			String date = request.getParameter("date");
 			int credit = 0;
 			credit = salesamt - paid;
@@ -55,8 +55,8 @@ public class BillServlet extends HttpServlet {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
 				Statement statement = connection.createStatement();
-				String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values("
-						+ billno + "," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex
+				String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
+						+ billno + "'," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex
 						+ ",'" + date + "',now()," + tot + ")";
 				statement.execute(query);
 				bill.put("status", 1);
@@ -69,7 +69,7 @@ public class BillServlet extends HttpServlet {
 			response.getWriter().print(bill);
 		} else if (operation.equals("update")) {
 			JSONObject update = new JSONObject();
-			String billno = request.getParameter("billno");
+			String billno = request.getParameter("abillno");
 
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
@@ -96,9 +96,9 @@ public class BillServlet extends HttpServlet {
 								+ bilno + "'," + sal + "," + paids + "," + prins + "," + cred + "," + shor + "," + exs
 								+ ",'" + dates + "','" + cdate + "'," + tot + ")";
 						statement.executeUpdate(query);
-						int salesamt = Integer.parseInt(request.getParameter("sales"));
-						int paid = Integer.parseInt(request.getParameter("paid"));
-						int prple = Integer.parseInt(request.getParameter("principle"));
+						int salesamt = Integer.parseInt(request.getParameter("asales"));
+						int paid = Integer.parseInt(request.getParameter("apaid"));
+						int prple = Integer.parseInt(request.getParameter("aprinciple"));
 						String date = request.getParameter("date");
 						int credit = 0;
 						int shortt = 0;
@@ -135,7 +135,7 @@ public class BillServlet extends HttpServlet {
 		} else if (operation.equals("getOne")) {
 			JSONObject one = new JSONObject();
 			// int billno = Integer.parseInt(request.getParameter("billno"));
-			String billno = request.getParameter("billno");
+			String billno = request.getParameter("abillno");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
@@ -369,7 +369,7 @@ public class BillServlet extends HttpServlet {
 					// String bills = rs.getString(1);
 					String bilno = rs.getString(1);
 					int sal = rs.getInt(2);
-					int paid = rs.getInt(3);
+					int pai = rs.getInt(3);
 					int prins = rs.getInt(4);
 					int crd = rs.getInt(5);
 					int shor = rs.getInt(6);
@@ -380,15 +380,15 @@ public class BillServlet extends HttpServlet {
 
 					try {
 						String quey = "insert into oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
-								+ bilno + "'," + sal + "," + paid + "," + prins + "," + crd + "," + shor + "," + exs
+								+ bilno + "'," + sal + "," + pai + "," + prins + "," + crd + "," + shor + "," + exs
 								+ ",'" + dates + "','" + cdate + "'," + tot + ")";
 						stat.executeUpdate(quey);
-						int paids = Integer.parseInt(request.getParameter("paids"));
+						int pais = Integer.parseInt(request.getParameter("pai"));
 						String dat = request.getParameter("dat");
 						int paidss = 0;
 						int newcrt = 0;
-						paidss = paid + paids;
-						newcrt = crd - paids;
+						paidss = pai + pais;
+						newcrt = crd - pais;
 						// Statement stats = conn.createStatement();
 						String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + ", dates='" + dat
 								+ "' where billno=" + bno;

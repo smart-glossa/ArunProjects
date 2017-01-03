@@ -207,10 +207,10 @@ function billdetails() {
 	var html = '<h3 class="fn">Add Bill Details</h3>'
 	+ '<table class="ss">'
 	+  '<span id="errmsg"></span>'
-	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="billno"  placeholder="BillNo.."></td></tr>'
-	+ '<tr><td>SalesAmount<span>*</span>:</td> <td><input type=text id="sales" class="chars" placeholder="SalesAmount.." class="chars"></td></tr>'
-	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paid" class="chars" placeholder="PaidAmount.." class="chars"></td></tr>'
-	+ '<tr><td>PrincipleAmount<span>*</span>:</td><td> <input type=text id="principle" class="chars" placeholder="PrincipleAmount.." class="chars"></td></tr>'
+	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="abillno"  placeholder="BillNo.."></td></tr>'
+	+ '<tr><td>SalesAmount<span>*</span>:</td> <td><input type=text id="asales" class="chars" placeholder="SalesAmount.." class="chars"></td></tr>'
+	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="apaid" class="chars" placeholder="PaidAmount.." class="chars"></td></tr>'
+	+ '<tr><td>PrincipleAmount<span>*</span>:</td><td> <input type=text id="aprinciple" class="chars" placeholder="PrincipleAmount.." class="chars"></td></tr>'
 	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
 	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
 	
@@ -230,7 +230,7 @@ function paidAmount(){
 	+ '<td>SalesAmount<span>*</span>:</td> <td><input type=text id="sal"  placeholder="SalesAmount.." class="chars" readOnly></td></tr>'
 	+ '<tr><td>AllreadyPaidAmount<span>*</span>:</td><td> <input type=text id="pai"  placeholder="OldPaidAmount.." class="chars" readOnly></td>'
 	+ '<td>CreditAmount<span>*</span>:</td><td> <input type=text id="cred"  placeholder="CreditAmount.." class="chars" readOnly></td></tr>'
-	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="paidss" class="chars" placeholder="PaidAmount.." class="chars"></td>'
+	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="pais" class="chars" placeholder="PaidAmount.." class="chars"></td>'
 	+ '<td>Date<span>*</span>:</td><td> <input type=date id="dat" class="add"></td></tr>'
 	+ '<tr><td></td><td><button id="psubmit">SUBMIT</button>&nbsp;&nbsp;</td><tr>'
 	+'</table>';
@@ -255,6 +255,7 @@ function dates() {
 	var paidVar="";
 	paidVar += "<ul id=\"menu\">";
 	paidVar += "<li><div  onclick=\"\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/8.png\" width=\"20px\">Date&Week<\/a></div><\/li>";
+	paidVar += "<li><div  onclick=\"\"><a href=\"#\">Month<\/a></div><\/li>";
 	paidVar += "<\/ul>";
 	div.innerHTML = paidVar;
 	return div;
