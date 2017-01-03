@@ -194,8 +194,7 @@ public class BillServlet extends HttpServlet {
 			response.getWriter().print(all);
 		} else if (operation.equals("delete")) {
 			JSONObject del = new JSONObject();
-			// int billno = Integer.parseInt(request.getParameter("billno"));
-			String billno = request.getParameter("billno");
+			String billno = request.getParameter("abillno");
 			try {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
@@ -294,10 +293,14 @@ public class BillServlet extends HttpServlet {
 					tots.put("credit", res.getString(4));
 					int shotage = res.getInt(5);
 					int exx = res.getInt(6);
-					if (exx < shotage) {
-						tots.put("Shortage", shotage);
+					int sh=0;
+					int exs=0;
+					sh=shotage-exx;
+					exs=exx-shotage;
+					if (exs < sh) {
+						tots.put("Shortage", sh);
 					} else {
-						tots.put("Excess", exx);
+						tots.put("Excess", exs);
 					}
 					list.put(tots);
 				}
@@ -383,7 +386,7 @@ public class BillServlet extends HttpServlet {
 								+ bilno + "'," + sal + "," + pai + "," + prins + "," + crd + "," + shor + "," + exs
 								+ ",'" + dates + "','" + cdate + "'," + tot + ")";
 						stat.executeUpdate(quey);
-						int pais = Integer.parseInt(request.getParameter("pai"));
+						int pais = Integer.parseInt(request.getParameter("pais"));
 						String dat = request.getParameter("dat");
 						int paidss = 0;
 						int newcrt = 0;

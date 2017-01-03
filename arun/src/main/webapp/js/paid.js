@@ -5,7 +5,7 @@ $(document).ready(function() {
 		var dat=$('#dat').val()
 		if(billno===""){
 			alert("Please Enter BillNo..");
-			$("#billno").focus().css("outline-color","#ff0000");
+			$("#bno").focus().css("outline-color","#ff0000");
 			return;
 		}
 		if(pais==""){
@@ -19,7 +19,7 @@ $(document).ready(function() {
 			return;
 		}
 		       
-        	   var url ="/arun/bill?operation=getcedit&billno=" +billno+ "&paids=" +pais+"&dates="+dat; 
+        	   var url ="/arun/bill?operation=getcedit&billno=" +billno+ "&pais=" +pais+"&dates="+dat; 
         	   $.ajax({
         	   	url : url,
         	   	type : 'POST'
@@ -31,7 +31,7 @@ $(document).ready(function() {
         	   		$('#sal').val("");
         	   		$('#pai').val("");
         	   		$('#cred').val("");
-        	   		$('#paidss').val("");
+        	   		$('#pais').val("");
         	   	} else {
         	   		//result = JSON.parse(result);
         	   		if (result.status == 0) {
@@ -56,7 +56,6 @@ $(document).ready(function() {
                 var sal = result.sal;
                 var pai=result.pai;
                 var cred=result.cred;
-                    //var date=result.date;
                     $("#sal").val(sal);
                     $("#pai").val(pai);
                     $("#cred").val(cred);
@@ -69,26 +68,25 @@ $(document).ready(function() {
         } else {
             $("#sales").val("");
             $("#pai").val("");
+            $("#pais").val("");
             $("#cred").val("");
         }
     });
     /*keyup and keydown*/
-    $(document).on("keyup","#billno",function(key){
+    $(document).on("keyup","#bno",function(key){
       var td = $(this).parent();
       var tr = td.parent();
-      if (key.which == 13) {
-         tr.next().children().children("#paids").focus();
+      if (key.which ==38) {
+         tr.next().children().children("#pais").focus();
      }
  })
-    $(document).on("keyup","#paids",function(key){
+    $(document).on("keyup","#pais",function(key){
       var td = $(this).parent();
       var tr = td.parent();
-      if (key.which == 13) {
-         tr.next().children().children("#paids").focus();
+      if (key.which == 38) {
+         tr.next().children().children("#psubmit").focus();
      }
-     if(key.which == 13){
-         tr.prev().children().children("#billno").focus();
-     }
+     
  })
     $('#psubmit').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
