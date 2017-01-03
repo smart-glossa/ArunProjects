@@ -238,6 +238,22 @@ function paidAmount(){
 	div.innerHTML = html;
 	return div;
 	  }
+function dropdown(){
+	var div = document.createElement("div");
+	div.className = "p";
+	
+	+ '<div class="dropdown">'
+	+  '<button class="dropbtn">Dropdown</button>'
+	+ '<div class="dropdown-content">'
+	+ '<a href="#">Link 1</a>'
+	+ '<a href="#">Link 2</a>'
+	+ '<a href="#">Link 3</a>'
+	+ '</div>'
+	+ '</div>';
+	
+	div.innerHTML = html;
+	return div;
+	  }
 function menuss() {
 	var div = document.createElement("div");
 	div.className = "paids";
@@ -253,10 +269,18 @@ function dates() {
 	var div = document.createElement("div");
 	div.className = "dateweek";
 	var paidVar="";
-	paidVar += "<ul id=\"menu\">";
-	paidVar += "<li><div  onclick=\"\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/8.png\" width=\"20px\">Date&Week<\/a></div><\/li>";
-	paidVar += "<li><div  onclick=\"\"><a href=\"#\">Month<\/a></div><\/li>";
-	paidVar += "<\/ul>";
+	paidVar += "<div class=\"dropdown\">";
+	paidVar += "<button class=\"dropdtn\">Date<\/button>";
+	paidVar += "<div class=\"dropdown-content\">";
+	paidVar += "<a href=\"#\">YesterDay<\/a>";
+	paidVar += "<a href=\"#\">Week<\/a>";
+	paidVar += "<a href=\"#\">Month<\/a>";
+	paidVar += "<a href=\"#\">Year<\/a>";
+	paidVar += "<\/div>";
+	paidVar += "<\/div>";
+	//paidVar += "<ul id=\"menu\">";
+	//paidVar += "<li><div  onclick=\"\"><a href=\"#\" onclick=\"return piad();\"><img src=\"img/8.png\" width=\"20px\">Date&Week<\/a></div><\/li>";
+//	paidVar += "<\/ul>";
 	div.innerHTML = paidVar;
 	return div;
 }
