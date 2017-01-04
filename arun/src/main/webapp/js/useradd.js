@@ -9,9 +9,10 @@ $(document).ready(function() {
 		var div = document.createElement("div");
 		div.className = "mainArea";
 		$("body")[0].appendChild(div);
-		$(".mainArea")[0].appendChild(paidAmount());
-		$(".mainArea")[0].appendChild(billdetails());
-		//$(".mainArea")[0].appendChild(totalbill());	
+		//$(".mainArea")[0].appendChild(paidAmount());
+		//$(".mainArea")[0].appendChild(billdetails());
+		//$(".mainArea")[0].appendChild(totalbill());
+		
 	}
 	$(document).on("click", "#signin", function(key) {
 		var name = $("#name").val();
@@ -150,9 +151,10 @@ $(document).ready(function() {
 					var div = document.createElement("div");
 					div.className = "mainArea";
 					$("body")[0].appendChild(div);
-					$(".mainArea")[0].appendChild(paidAmount());
-					$(".mainArea")[0].appendChild(billdetails());
+					//$(".mainArea")[0].appendChild(paidAmount());
+					//$(".mainArea")[0].appendChild(billdetails());
 					//$(".mainArea")[0].appendChild(totalbill());	
+					
 					
 				} else {
 					//result = JSON.parse(result);
@@ -222,7 +224,8 @@ function billdetails() {
 }
 function paidAmount(){
 	var div = document.createElement("div");
-	div.className = "p";
+	div.idName="myDIV1";
+	//div.className = "p";
 	var html = '<h3 class="fns">PaidAmount</h3>'
 	+ '<table class="pamount">'
 	+  '<span id="errmsg"></span>'
@@ -234,26 +237,10 @@ function paidAmount(){
 	+ '<td>Date<span>*</span>:</td><td> <input type=date id="dat" class="add"></td></tr>'
 	+ '<tr><td></td><td><button id="psubmit">SUBMIT</button>&nbsp;&nbsp;</td><tr>'
 	+'</table>';
-	
 	div.innerHTML = html;
 	return div;
 	  }
-function dropdown(){
-	var div = document.createElement("div");
-	div.className = "p";
-	
-	+ '<div class="dropdown">'
-	+  '<button class="dropbtn">Dropdown</button>'
-	+ '<div class="dropdown-content">'
-	+ '<a href="#">Link 1</a>'
-	+ '<a href="#">Link 2</a>'
-	+ '<a href="#">Link 3</a>'
-	+ '</div>'
-	+ '</div>';
-	
-	div.innerHTML = html;
-	return div;
-	  }
+
 function menuss() {
 	var div = document.createElement("div");
 	div.className = "paids";
@@ -272,10 +259,10 @@ function dates() {
 	paidVar += "<div class=\"dropdown\">";
 	paidVar += "<button class=\"dropdtn\">Date<\/button>";
 	paidVar += "<div class=\"dropdown-content\">";
-	paidVar += "<a href=\"#\">YesterDay<\/a>";
-	paidVar += "<a href=\"#\">Week<\/a>";
-	paidVar += "<a href=\"#\">Month<\/a>";
-	paidVar += "<a href=\"#\">Year<\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"myFunction1()\">YesterDay<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"myFunction2()\">Week<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"myFunction3()\">Month<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"myFunction4()\">Year<\/div><\/a>";
 	paidVar += "<\/div>";
 	paidVar += "<\/div>";
 	//paidVar += "<ul id=\"menu\">";
@@ -311,7 +298,6 @@ function datestable(){
 	var html = '<h3 class="fn">Add Bill Details</h3>'
 	+ '<table class="ss">'
 	+  '<span id="errmsg"></span>'
-	
 	+ '<tr><td>From<span>*</span>:</td> <td><input type=date id="sales" ></td></tr>'
 	+ '<tr><td>ToDate<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
 	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
@@ -323,3 +309,4 @@ function datestable(){
 	return div;
 	
 }
+

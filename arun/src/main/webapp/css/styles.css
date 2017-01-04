@@ -96,3 +96,44 @@
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+
+/*hide and show use css file*/
+ #myDIV1 {
+      position:absolute;
+      left:400px;
+      width: 550px;
+      height: 450px;
+      background-color: lightblue;
+      display: none;
+     
+    }
+
+
+    #myDIV2 {
+    position:absolute;
+    left:400px;
+      width: 550px;
+      height: 400px;
+      background-color:blue;
+      display: none;
+    }
+
+
+    #myDIV3 {
+    position:absolute;
+    left:400px;
+      width: 550px;
+      height:400px;
+      background-color: lightgreen;
+      display: none;
+    }
+
+
+    #myDIV4 {
+    position:absolute;
+      left:400px;
+      width: 550px;
+      height:400px;
+      background-color:yellow;
+      display: none;
+    }
