@@ -431,8 +431,7 @@ public class BillServlet extends HttpServlet {
 				e.printStackTrace();
 				obj.put("message", e.getMessage());
 			}
-			response.getWriter().println(obj);
+			response.getWriter().print(obj);
 		}
 	}
-
 }

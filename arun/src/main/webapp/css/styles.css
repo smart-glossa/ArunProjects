@@ -107,8 +107,6 @@
       display: none;
      
     }
-
-
     #myDIV2 {
     position:absolute;
     left:400px;
@@ -117,8 +115,6 @@
       background-color:blue;
       display: none;
     }
-
-
     #myDIV3 {
     position:absolute;
     left:400px;
@@ -127,7 +123,6 @@
       background-color: lightgreen;
       display: none;
     }
-
 
     #myDIV4 {
     position:absolute;
