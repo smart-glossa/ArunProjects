@@ -2,6 +2,7 @@ package com.smartglossa.arun;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -432,6 +433,96 @@ public class BillServlet extends HttpServlet {
 				obj.put("message", e.getMessage());
 			}
 			response.getWriter().print(obj);
+		}else if(operation.equals("days")){
+			JSONArray obj=new JSONArray();
+			try {
+				Class.forName(BillConstant.MYSQL_DRIVER);
+				Connection conn=DriverManager.getConnection(URL,BillConstant.USERNAME,BillConstant.PASSWORD);
+				Statement stat=conn.createStatement();
+				String query="";
+				ResultSet rs=stat.executeQuery(query);
+				while(rs.next()){
+					JSONObject days=new JSONObject();
+					days.put("bnoamt",rs.getString(1));
+					days.put("salamt",rs.getInt(2));
+					days.put("paidamt",rs.getInt(3));
+					days.put("painamt",rs.getInt(4));
+					days.put("credamt",rs.getInt(5));
+					days.put("storamt",rs.getInt(6));
+					days.put("examt",rs.getInt(7));
+					obj.put(days);
+					
+				}
+		         
+			} catch (Exception e) {
+				JSONObject error=new JSONObject();
+				error.put("status",0);
+				e.printStackTrace();
+				error.put("message",e.getMessage());
+				obj.put(error);
+				
+			}
+			response.getWriter().print(obj);
+		}else if(operation.equals("week")){
+			JSONArray objj=new JSONArray();
+			try {
+				Class.forName(BillConstant.MYSQL_DRIVER);
+				Connection con=DriverManager.getConnection(URL,BillConstant.USERNAME,BillConstant.PASSWORD);
+				Statement stat=con.createStatement();
+				String query="";
+				ResultSet rs=stat.executeQuery(query);
+				while(rs.next()){
+					JSONObject week=new JSONObject();
+					week.put("bnoamt",rs.getString(1));
+					week.put("salamt",rs.getInt(2));
+					week.put("paidamt",rs.getInt(3));
+					week.put("painamt",rs.getInt(4));
+					week.put("credamt",rs.getInt(5));
+					week.put("storamt",rs.getInt(6));
+					week.put("examt",rs.getInt(7));
+					objj.put(week);
+					
+				}
+			} catch (Exception e) {
+				JSONObject error=new JSONObject();
+				error.put("status",0);
+				e.printStackTrace();
+				error.put("message",e.getMessage());
+				objj.put(error);
+			}
+			response.getWriter().print(objj);
+		}else if(operation.equals("tofromdate")){
+			String fromdate=request.getParameter("from");
+			String todate=request.getParameter("to");
+			JSONArray tofrom=new JSONArray();
+			try {
+				Class.forName(BillConstant.MYSQL_DRIVER);
+				Connection con=DriverManager.getConnection(URL,BillConstant.USERNAME,BillConstant.PASSWORD);
+				Statement stat=con.createStatement();
+				String query="select * from bill where date="+fromdate+" AND date="+todate+"";
+				ResultSet res=stat.executeQuery(query);
+				while(res.next()){
+					JSONObject to=new JSONObject();
+					to.put("bnoamt",res.getString(1));
+					to.put("salamt",res.getInt(2));
+					to.put("paidamt",res.getInt(3));
+					to.put("painamt",res.getInt(4));
+					to.put("credamt",res.getInt(5));
+					to.put("storamt",res.getInt(6));
+					to.put("examt",res.getInt(7));
+				    tofrom.put(to);
+					
+				}
+			} catch (Exception e) {
+				JSONObject ex=new JSONObject();
+				ex.put("status",0);
+				ex.put("message",e.getMessage());
+				e.printStackTrace();
+				tofrom.put(ex);
+			}
+			response.getWriter().print(tofrom);
 		}
+		
+			
 	}
 }

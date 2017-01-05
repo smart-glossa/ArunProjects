@@ -98,9 +98,9 @@
 }
 
 /*hide and show use css file*/
- #myDIV1 {
+ .myDIV1 {
       position:absolute;
-      left:400px;
+      left:900px;
       width: 550px;
       height: 450px;
       background-color: lightblue;
