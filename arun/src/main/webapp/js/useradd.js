@@ -1,39 +1,4 @@
-$(document).ready(function() {
-	
-function getCookie(user) {
-	var name = user + "=";
-	var ca = document.cookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length,c.length);
-		}
-	}
-	return undefined;
-}
 
-function applyUser() {
-	var usname = getCookie("user");
-	
-	$.ajax({
-		
-		url: "/arun/bill?operation=getusername&users=" + usname,
-		type: 'POST'
-	})
-	.done(function(result){
-		result = JSON.parse(result);
-		if (result.status == 1) {
-			$(".showusername").text("Welcome Mr. " + result.message);
-		}
-	})
-	.fail(function(result){
-		console.log(result);
-	});
-	
-}
 function billdetails() {
 	var div = document.createElement("div");
 	div.className = "b";
@@ -50,7 +15,7 @@ function billdetails() {
 	+ '<button id="update">UPDATE</button></td><tr>'
 	+'</table>';
 	
-	div.innerHTML = html;
+	$('.myDIV1')[0].innerHTML = html;
 	return div;
 }
 function paidAmount(){
@@ -69,7 +34,7 @@ function paidAmount(){
 	+ '<td>Date<span>*</span>:</td><td> <input type=date id="dat" class="add"></td></tr>'
 	+ '<tr><td></td><td><button id="psubmit">SUBMIT</button>&nbsp;&nbsp;</td><tr>'
 	+'</table>'
-	$('#myDIV1').appendChild(html);
+	$('.myDIV1')[0].innerHTML = html;
 	//+'</div>';
 	//div.innerHTML = html;
 	//return div;
@@ -93,8 +58,8 @@ function dates() {
 	paidVar += "<div class=\"dropdown\">";
 	paidVar += "<button class=\"dropdtn\">Date<\/button>";
 	paidVar += "<div class=\"dropdown-content\">";
-	paidVar += "<a href=\"\"><div onclick=\"myFunction1()\">YesterDay<\/div><\/a>";
-	paidVar += "<a href=\"#\"><div onclick=\"myFunction2()\">Week<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"paidAmount()\">YesterDay<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"billdetails()\">Week<\/div><\/a>";
 	paidVar += "<a href=\"#\"><div onclick=\"myFunction3()\">Month<\/div><\/a>";
 	paidVar += "<a href=\"#\"><div onclick=\"myFunction4()\">Year<\/div><\/a>";
 	paidVar += "<\/div>";

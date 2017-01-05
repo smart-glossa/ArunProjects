@@ -1,14 +1,16 @@
 $(document).ready(function() {
 	if (getCookie("user") != undefined) {
-		$("body")[0].appendChild(menu());
-		$("body")[0].appendChild(menus());
-		$("body")[0].appendChild(menuss());
-		$("body")[0].appendChild(dates());
-		//applyUser();
-		//$($(".mainArea")[0]).remove();
-		//var div = document.createElement("div");
-		//div.className = "mainArea";
-		//$("body")[0].appendChild(div);
+		
+		var div = document.createElement("div");
+	     div.className = "bill";
+	     
+	     $("body")[0].appendChild(div);
+			$(".bill")[0].appendChild(menu());
+			$(".bill")[0].appendChild(menus());
+			$(".bill")[0].appendChild(menuss());
+			$(".bill")[0].appendChild(dates());
+			//$(".bill")[0].appendChild(paidAmount());
+		
 		//$("body")[0].appendChild(paidAmount());
 		//paidAmount();
 		//$(".mainArea")[0].appendChild(billdetails());
@@ -142,14 +144,14 @@ $(document).ready(function() {
 				var resp = JSON.parse(result);
 				if (resp.status == "success") {
 					//alert("successlly login"+user);
-					//document.cookie = "user=" + user;
+					document.cookie = "user=" + user;
 					 window.location.href = 'bill.html';
-					$("body")[0].appendChild(menu());
-					$("body")[0].appendChild(menus());
-					$("body")[0].appendChild(menuss());
-					$("body")[0].appendChild(dates());
-					$("body")[0].appendChild(div);
-					$("body")[0].appendChild(paidAmount());
+					//$(".bill")[0].appendChild(menu());
+					//$(".bill")[0].appendChild(menus());
+					//$(".bill")[0].appendChild(menuss());
+					//$(".bill")[0].appendChild(dates());
+					//$(".bill")[0].appendChild(totalbill());
+					//$(".bill")[0].appendChild(paidAmount());
 					
 					//menuss();
 					//$(".mainArea")[0].appendChild(paidAmount());
