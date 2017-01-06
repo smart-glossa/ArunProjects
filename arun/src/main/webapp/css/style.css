@@ -157,7 +157,7 @@ h4{
 }
 
 .menuBar{
-	top:7px;
+	top:7.px;
 	position:absolute;
 	left:1100px;  
 }
@@ -174,4 +174,8 @@ h4{
 .showusername{
 	position:absolute; 
 	color:red; 
+}
+.get{
+	left:200px;
+	position: absolute; 
 }
