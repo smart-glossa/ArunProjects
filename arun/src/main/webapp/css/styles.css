@@ -30,13 +30,31 @@
 	left:695px; 
 }
 .ss{
-	top:50px;
+	top:40px;
 	position:absolute;
 	left:400px; 
 }
-.fn{
+.sss{
+	top:20px;
 	position:absolute;
-	left:580px;  
+	left:30px; 
+}
+
+.fn{
+	left:150px; 
+	position:absolute;
+	bottom:540px;
+	font-style:inherit;
+	font-size:26px;
+	color:#66CDAA;  
+}
+.fnss{
+	left:180px; 
+	position:absolute;
+	bottom:520px;
+	font-style:inherit;
+	font-size:30px;
+	color:#66CDAA;  
 }
 .p{
 	top:460px;
@@ -44,9 +62,12 @@
 	position:absolute;  
 }
 .fns{
-	bottom:250px;
+	left:200px; 
 	position:absolute;
-	left:310px;  
+	bottom:540px;
+	font-style:inherit;
+	font-size:30px;
+	color:#66CDAA;     
 }
 .paids{
 	top:130px;
@@ -54,8 +75,8 @@
 	position: absolute;
 }
 .dateweek{
-	top:200px;
-	left:30px;
+	top:7px;
+	left:155px;
 	position: absolute;
 }
 .dropbtn {
@@ -95,17 +116,27 @@
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+
 }
+#divs{
+	background-color:black;
+	width:120px;
+	height:30px;
+	padding:10px;
+	color:white;
+	font-style:italic;
+	font-size:20px;
+	font-size-adjust:none;        
+}
+
 
 /*hide and show use css file*/
  .myDIV1 {
       position:absolute;
-      left:900px;
-      width: 550px;
-      height: 450px;
-      background-color: lightblue;
-      display: none;
-     
+      top:130px;
+      left:400px;
+      width:550px;
+      height:550px;
     }
     #myDIV2 {
     position:absolute;
@@ -132,3 +163,4 @@
       background-color:yellow;
       display: none;
     }
+   
