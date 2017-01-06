@@ -1,15 +1,12 @@
 $(document).ready(function() {
 	if (getCookie("user") != undefined) {
 		
-		var div = document.createElement("div");
-	     div.className = "bill";
-	     
-	     $("body")[0].appendChild(div);
-			$(".bill")[0].appendChild(menu());
-			$(".bill")[0].appendChild(menus());
-			$(".bill")[0].appendChild(menuss());
-			$(".bill")[0].appendChild(dates());
-			//$(".bill")[0].appendChild(paidAmount());
+		
+		//	$(".bill")[0].appendChild(menu());
+		//	$(".bill")[0].appendChild(menus());
+		//	$(".bill")[0].appendChild(menuss());
+		//	$(".bill")[0].appendChild(dates());
+		    //$(".bill")[0].appendChild(paidAmount());
 		
 		//$("body")[0].appendChild(paidAmount());
 		//paidAmount();
@@ -146,12 +143,8 @@ $(document).ready(function() {
 					//alert("successlly login"+user);
 					document.cookie = "user=" + user;
 					 window.location.href = 'bill.html';
-					//$(".bill")[0].appendChild(menu());
-					//$(".bill")[0].appendChild(menus());
-					//$(".bill")[0].appendChild(menuss());
-					//$(".bill")[0].appendChild(dates());
-					//$(".bill")[0].appendChild(totalbill());
-					//$(".bill")[0].appendChild(paidAmount());
+					
+					//$(".myDIV1")[0].appendChild(paidAmount());
 					
 					//menuss();
 					//$(".mainArea")[0].appendChild(paidAmount());
