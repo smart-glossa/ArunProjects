@@ -4,7 +4,7 @@
 	width:850px;
 	height:370px;
 	top:160px;
-	margin-left:200px;      
+	
 }
 span{
 	color:red; 
@@ -48,6 +48,7 @@ ul {
 }
 
 /*Create a horizontal list with spacing*/
+
 li {
 	display:inline-block;
 	float: left;
@@ -156,7 +157,7 @@ h4{
 }
 
 .menuBar{
-	top:60px;
+	top:7px;
 	position:absolute;
 	left:1100px;  
 }
