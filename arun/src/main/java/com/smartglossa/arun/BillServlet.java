@@ -499,7 +499,7 @@ public class BillServlet extends HttpServlet {
 				Class.forName(BillConstant.MYSQL_DRIVER);
 				Connection con=DriverManager.getConnection(URL,BillConstant.USERNAME,BillConstant.PASSWORD);
 				Statement stat=con.createStatement();
-				String query="select * from bill where date="+fromdate+" AND date="+todate+"";
+				String query="select * from bill where cdate="+fromdate+" AND cdate="+todate+"";
 				ResultSet res=stat.executeQuery(query);
 				while(res.next()){
 					JSONObject to=new JSONObject();
