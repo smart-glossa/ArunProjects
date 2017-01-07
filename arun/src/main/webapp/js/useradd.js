@@ -8,8 +8,7 @@ $(document).ready(function(){
 					$(".bill")[0].appendChild(getall());
 					//$(".bill")[0].appendChild(menuss());
 					$(".bill")[0].appendChild(dates());
-					$(".bill")[0].appendChild(totalbill());
-					$(".bill")[0].appendChild(displaybill());
+					
 					
 })
 function billdetails() {
@@ -31,7 +30,7 @@ function billdetails() {
 	return div;
 }
 function paidAmount(){
-	var html = '<h3 class="fns">PaidAmount</h3>'
+	var html = '<h3 class="fm">PaidAmount</h3>'
 	+ '<table class="pamount">'
 	+  '<span id="errmsg"></span>'
 	+ '<tr><td>BillNo<span>*<span>:</td><td> <input type=text id="bno"  placeholder="BillNo.."></td></tr>'
@@ -78,9 +77,9 @@ function getall() {
 	paidVar += "<div class=\"dropdown\">";
 	paidVar += "<div class=\"dropdtn\" id=\"divs\"><img src=\"img/5.png\" width=\"25\">BillTotal<\/div>";
 	paidVar += "<div class=\"dropdown-content\">";
-	paidVar += "<a href=\"#\" onclick=\"return piad();\"><div onclick=\"totalbill()\"><img src=\"img/13.png\" width=\"20px\">Total<\/div><\/a>";
-	paidVar += "<a href=\"#\" onclick=\"return show();\"><div  id=\"opener\" onclick=\"displaybill()\"><img src=\"img/home.png\">AllBillDetail<\/div><\/a>";
-	//paidVar += "<a href=\"#\"><div onclick=\"myFunction3()\">Month<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"totalbill()\"><img src=\"img/13.png\">Total<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"displaybill()\"><img src=\"img/home.png\">AllBillDetail<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"myFunction3()\">Month<\/div><\/a>";
 	//paidVar += "<a href=\"#\"><div onclick=\"myFunction4()\">Year<\/div><\/a>";
 	paidVar += "<\/div>";
 	paidVar += "<\/div>";

@@ -26,9 +26,9 @@ public class BillServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject bill = new JSONObject();
-		//String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
-		//BillConstant.DATABASE_NAME;
-		String URL = "jdbc:mysql://localhost:3306/arun";
+		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
+		BillConstant.DATABASE_NAME;
+		//String URL = "jdbc:mysql://localhost:3306/arun";
 		String operation = request.getParameter("operation");
 
 		if (operation.equals("add")) {

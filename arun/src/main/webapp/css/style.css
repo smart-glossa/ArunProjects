@@ -27,12 +27,14 @@ button{
 }
 table{
 	
-	border-spacing:15px; 
+	border-spacing:10px; 
 	left:100px;
 	
 }
 th{
-	background-color:#CEF6E3; 
+	background-color:black;
+	font-size:20px;
+	color:white;   
 }
 #errmsg
 {
@@ -179,4 +181,9 @@ h4{
 	top:7px;
 	left:300px;
 	position: absolute; 
+	
+}
+.tot{
+	top:400px;
+	position: absolute;
 }

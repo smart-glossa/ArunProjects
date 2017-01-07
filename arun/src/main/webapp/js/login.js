@@ -192,7 +192,7 @@ function applyUser() {
 	.done(function(result){
 		result = JSON.parse(result);
 		if (result.status == 1) {
-			$(".showusername").text("Welcome Mr. " + result.message);
+			$(".myDIV2").text("Welcome Mr. " + result.message);
 		}
 	})
 	.fail(function(result){

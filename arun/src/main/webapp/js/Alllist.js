@@ -25,7 +25,7 @@ function displaybill() {
 				}
 			}
 			query += "</table>"
-			$("#all")[0].innerHTML = query;
+			$(".myDIV1")[0].innerHTML =query;
 
 		}).fail(function() {
 
@@ -76,22 +76,22 @@ function displaybill() {
 		.done(
 			function(result) {
 				var array = JSON.parse(result);
-				var query = "<table border= '2px solid black'>"
-				query += "<th>SalesAmount</th><th>PaidAmount</th><th>PrincipleAmount</th><th>CreditAmount</th><th>Shortage</th><th>Excess</th></tr>"
+				var querys = "<table border= '2px solid black'>"
+				querys += "<th>SalesAmount</th><th>PaidAmount</th><th>PrincipleAmount</th><th>CreditAmount</th><th>Shortage</th><th>Excess</th></tr>"
 				if(result!="undefined"){
 					for (var i = 0; i < array.length; i++) {
 						
-						query += "<td>" + array[i].sales + "</td>";
-						query += "<td>" + array[i].paid + "</td>";
-						query += "<td>" + array[i].prin + "</td>";
-						query += "<td>" + array[i].credit + "</td>";
-						query += "<td>" + array[i].Shortage + "</td>";
-						query += "<td>" + array[i].Excess + "</td></tr>"
+						querys += "<td>" + array[i].sales + "</td>";
+						querys += "<td>" + array[i].paid + "</td>";
+						querys += "<td>" + array[i].prin + "</td>";
+						querys += "<td>" + array[i].credit + "</td>";
+						querys += "<td>" + array[i].Shortage + "</td>";
+						querys += "<td>" + array[i].Excess + "</td></tr>"
 					//	query += "<td> <img class='delete' src='" + imgURL + "' width='25px' height='25px'/></td></tr>"
 				}
 			}
-			query += "</table>"
-			$("#total")[0].innerHTML = query;
+		querys += "</table>"
+			$(".myDIV1")[0].innerHTML = querys;
 
 		}).fail(function() {
 

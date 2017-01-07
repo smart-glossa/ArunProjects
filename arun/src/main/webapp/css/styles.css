@@ -26,7 +26,7 @@
 }
 .sh {
 	position:absolute;
-	top: 5px;
+	top: 5pzx;
 	left:775px; 
 }
 .ss{
@@ -48,8 +48,16 @@
 	font-size:26px;
 	color:#66CDAA;  
 }
+.fm{
+	left:170px; 
+	position:absolute;
+	bottom:540px;
+	font-style:inherit;
+	font-size:26px;
+	color:#66CDAA;  
+}
 .fnss{
-	left:180px; 
+	left:160px; 
 	position:absolute;
 	bottom:520px;
 	font-style:inherit;
@@ -133,18 +141,19 @@
 /*hide and show use css file*/
  .myDIV1 {
       position:absolute;
-      top:130px;
+      top:190px;
       left:400px;
       width:550px;
       height:550px;
     }
-    #myDIV2 {
-    position:absolute;
-    left:400px;
+    .myDIV2 {
+      position:absolute;
+      left:100px;
+      top:120px;
       width: 550px;
       height: 400px;
-      background-color:blue;
-      display: none;
+    
+
     }
     #myDIV3 {
     position:absolute;
