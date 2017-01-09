@@ -17,7 +17,8 @@ public class BillClass {
 	Connection con = null;
 	Statement stat = null;
 	ResultSet res = null;
-	//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+	// SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	public BillClass() throws Exception {
 		openConnection();
 	}
@@ -291,30 +292,32 @@ public class BillClass {
 			closeConnection();
 		}
 	}
- public JSONObject getcredit(String bno) throws SQLException{
-	 JSONObject obj=new JSONObject();
-	 try {
-		 String query = "select sales,paid,credit,dates from bill where billno=" + bno;
+
+	public JSONObject getcredit(String bno) throws SQLException {
+		JSONObject obj = new JSONObject();
+		try {
+			String query = "select sales,paid,credit,dates from bill where billno=" + bno;
 			ResultSet res = stat.executeQuery(query);
 			if (res.next()) {
 				obj.put("sal", res.getInt(1));
 				obj.put("pai", res.getInt(2));
 				obj.put("cred", res.getInt(3));
 				obj.put("dat", res.getString(4));
-				//obj.put("states", 1);
+				// obj.put("states", 1);
 			}
-	} finally {
-		closeConnection();
+		} finally {
+			closeConnection();
+		}
+		return obj;
 	}
-	return obj;
- }
- public JSONArray getdate(String cdate) throws SQLException, ParseException{
-	 JSONArray obj=new JSONArray();
-	 try {
-		 Date date;
-		 date = new SimpleDateFormat("MM/dd/yyyy").parse(cdate);
+
+	public JSONArray getdate(String cdate) throws SQLException, ParseException {
+		JSONArray obj = new JSONArray();
+		try {
+			Date date;
+			date = new SimpleDateFormat("MM/dd/yyyy").parse(cdate);
 			String newDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-		 String query = "select * from bill where cdate='"+newDate+"'";
+			String query = "select * from bill where cdate='" + newDate + "'";
 			ResultSet rs = stat.executeQuery(query);
 			while (rs.next()) {
 				JSONObject day = new JSONObject();
@@ -325,15 +328,44 @@ public class BillClass {
 				day.put("credamt", rs.getInt(5));
 				day.put("storamt", rs.getInt(6));
 				day.put("examt", rs.getInt(7));
-				day.put("dates",rs.getString(8));
+				day.put("dates", rs.getString(8));
 				obj.put(day);
 
 			}
-	} finally {
-		closeConnection();
+		} finally {
+			closeConnection();
+		}
+		return obj;
 	}
-	return obj;
- }
+
+	public JSONArray fromto(String fromdate, String todate) throws SQLException, ParseException {
+		JSONArray fromto = new JSONArray();
+		try {
+			Date date;
+			Date dat;
+			date = new SimpleDateFormat("MM/dd/yyyy").parse(fromdate);
+			String from = new SimpleDateFormat("yyyy-MM-dd").format(date);
+			dat = new SimpleDateFormat("MM/dd/yyyy").parse(todate);
+			String todates = new SimpleDateFormat("yyyy-MM-dd").format(date);
+			String query = "select * from bill where cdate='" + from + "' AND cdate='" + todates + "'";
+			ResultSet res = stat.executeQuery(query);
+			while (res.next()) {
+				JSONObject to = new JSONObject();
+				to.put("bnoamt", res.getString(1));
+				to.put("salamt", res.getInt(2));
+				to.put("paidamt", res.getInt(3));
+				to.put("painamt", res.getInt(4));
+				to.put("credamt", res.getInt(5));
+				to.put("storamt", res.getInt(6));
+				to.put("examt", res.getInt(7));
+				fromto.put(to);
+			}
+		} finally {
+			closeConnection();
+		}
+		return fromto;
+	}
+
 	private void openConnection() throws Exception {
 		Class.forName(BillConstant.MYSQL_DRIVER);
 		// String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
