@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +16,7 @@ public class BillClass {
 	Connection con = null;
 	Statement stat = null;
 	ResultSet res = null;
-
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	public BillClass() throws Exception {
 		openConnection();
 	}
@@ -70,7 +72,7 @@ public class BillClass {
 	public JSONObject getbill(String billno) throws JSONException, SQLException {
 		JSONObject one = new JSONObject();
 		try {
-			String query = "select * from bill where billno='" + billno + "'";
+			String query = "select *  from bill where billno='" + billno + "'";
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 
