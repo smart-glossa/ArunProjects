@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class BillClass {
 	Connection con = null;
 	Statement stat = null;
 	ResultSet res = null;
-	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	//SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	public BillClass() throws Exception {
 		openConnection();
 	}
@@ -307,10 +308,13 @@ public class BillClass {
 	}
 	return obj;
  }
- public JSONArray getdate(String cdate) throws SQLException{
+ public JSONArray getdate(String cdate) throws SQLException, ParseException{
 	 JSONArray obj=new JSONArray();
 	 try {
-		 String query = "select * from bill where cdate='"+cdate+"'";
+		 Date date;
+		 date = new SimpleDateFormat("MM/dd/yyyy").parse(cdate);
+			String newDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+		 String query = "select * from bill where cdate='"+newDate+"'";
 			ResultSet rs = stat.executeQuery(query);
 			while (rs.next()) {
 				JSONObject day = new JSONObject();
@@ -321,6 +325,7 @@ public class BillClass {
 				day.put("credamt", rs.getInt(5));
 				day.put("storamt", rs.getInt(6));
 				day.put("examt", rs.getInt(7));
+				day.put("dates",rs.getString(8));
 				obj.put(day);
 
 			}

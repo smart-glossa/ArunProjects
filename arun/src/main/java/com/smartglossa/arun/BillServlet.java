@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +27,7 @@ public class BillServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		JSONObject bill = new JSONObject();
 		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" + BillConstant.DATABASE_NAME;
 		// String URL = "jdbc:mysql://localhost:3306/arun";
@@ -276,28 +279,13 @@ public class BillServlet extends HttpServlet {
 			}
 			response.getWriter().print(obj);
 		} else if (operation.equals("daybill")) {
-			String cdate=request.getParameter("cdate");
+			String cdate = request.getParameter("cdate");
+			
 			JSONArray objj = new JSONArray();
+			
 			try {
-			//	Class.forName(BillConstant.MYSQL_DRIVER);
-				//Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				//Statement stat = con.createStatement();
-				//String query = "";
-				//ResultSet rs = stat.executeQuery(query);
-				//while (rs.next()) {
-					//JSONObject week = new JSONObject();
-					//week.put("bnoamt", rs.getString(1));
-					//week.put("salamt", rs.getInt(2));
-					//week.put("paidamt", rs.getInt(3));
-					//week.put("painamt", rs.getInt(4));
-					//week.put("credamt", rs.getInt(5));
-					//week.put("storamt", rs.getInt(6));
-					//week.put("examt", rs.getInt(7));
-					//objj.put(week);
-
-				//}
-				BillClass dd=new BillClass();
-				objj=dd.getdate(cdate);
+				BillClass dd = new BillClass();
+				objj = dd.getdate(cdate);
 			} catch (Exception e) {
 				JSONObject error = new JSONObject();
 				error.put("status", 0);
