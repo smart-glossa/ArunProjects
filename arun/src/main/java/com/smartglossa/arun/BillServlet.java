@@ -321,7 +321,7 @@ public class BillServlet extends HttpServlet {
 				// }
 				// }
 				BillClass send = new BillClass();
-				
+
 				send.getcreditbill(bno, pais, dat);
 				cred.put("status", 1);
 			} catch (Exception e) {
@@ -334,22 +334,11 @@ public class BillServlet extends HttpServlet {
 			String bno = request.getParameter("bno");
 			JSONObject obj = new JSONObject();
 			try {
-				//Class.forName(BillConstant.MYSQL_DRIVER);
-				//Connection conn = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				//Statement stat = conn.createStatement();
-				//String query = "select sales,paid,credit,dates from bill where billno=" + bno;
-				//ResultSet res = stat.executeQuery(query);
-				//if (res.next()) {
-					//obj.put("sal", res.getInt(1));
-					//obj.put("pai", res.getInt(2));
-					//obj.put("cred", res.getInt(3));
-					//obj.put("dat", res.getString(4));
-					//obj.put("states", 1);
-               BillClass cred=new BillClass();
-				
-				obj=cred.getcredit(bno);
-				obj.put("states",1);
-				
+				BillClass cred = new BillClass();
+
+				obj = cred.getcredit(bno);
+				obj.put("states", 1);
+
 			} catch (Exception e) {
 				obj.put("states", 0);
 				e.printStackTrace();
