@@ -299,23 +299,25 @@ public class BillServlet extends HttpServlet {
 			String todate = request.getParameter("to");
 			JSONArray tofrom = new JSONArray();
 			try {
-				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				Statement stat = con.createStatement();
-				String query = "select * from bill where cdate=" + fromdate + " AND cdate=" + todate + "";
-				ResultSet res = stat.executeQuery(query);
-				while (res.next()) {
-					JSONObject to = new JSONObject();
-					to.put("bnoamt", res.getString(1));
-					to.put("salamt", res.getInt(2));
-					to.put("paidamt", res.getInt(3));
-					to.put("painamt", res.getInt(4));
-					to.put("credamt", res.getInt(5));
-					to.put("storamt", res.getInt(6));
-					to.put("examt", res.getInt(7));
-					tofrom.put(to);
+				//Class.forName(BillConstant.MYSQL_DRIVER);
+				//Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
+				//Statement stat = con.createStatement();
+				//String query = "select * from bill where cdate=" + fromdate + " AND cdate=" + todate + "";
+				//ResultSet res = stat.executeQuery(query);
+				//while (res.next()) {
+					//JSONObject to = new JSONObject();
+					//to.put("bnoamt", res.getString(1));
+					//to.put("salamt", res.getInt(2));
+					//to.put("paidamt", res.getInt(3));
+					//to.put("painamt", res.getInt(4));
+					//to.put("credamt", res.getInt(5));
+					//to.put("storamt", res.getInt(6));
+					//to.put("examt", res.getInt(7));
+					//tofrom.put(to);
 
-				}
+				//}
+				BillClass to=new BillClass();
+				tofrom=to.fromto(fromdate, todate);
 			} catch (Exception e) {
 				JSONObject ex = new JSONObject();
 				ex.put("status", 0);
