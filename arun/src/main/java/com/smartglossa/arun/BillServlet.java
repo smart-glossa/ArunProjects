@@ -176,32 +176,35 @@ public class BillServlet extends HttpServlet {
 		} else if (operation.equals("totlist")) {
 			JSONArray list = new JSONArray();
 			try {
-				//Class.forName(BillConstant.MYSQL_DRIVER);
-				//Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				//Statement stat = connection.createStatement();
-				//String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
-				//ResultSet res = stat.executeQuery(qry);
-				//if (res.next()) {
-					//JSONObject tots = new JSONObject();
-					//tots.put("sales", res.getString(1));
-					//tots.put("paid", res.getString(2));
-					//tots.put("prin", res.getString(3));
-					//tots.put("credit", res.getString(4));
-					///int shotage = res.getInt(5);
-					//int exx = res.getInt(6);
-					//int sh = 0;
-					//int exs = 0;
-					//sh = shotage - exx;
-					//exs = exx - shotage;
-					//if (exs < sh) {
-						//tots.put("Shortage", sh);
-					//} else {
-						//tots.put("Excess", exs);
-					//}
-					//list.put(tots);
-			//	}
-				BillClass listbill=new BillClass();
-				list=listbill.listbill();
+				// Class.forName(BillConstant.MYSQL_DRIVER);
+				// Connection connection = DriverManager.getConnection(URL,
+				// BillConstant.USERNAME, BillConstant.PASSWORD);
+				// Statement stat = connection.createStatement();
+				// String qry = "select
+				// sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex)
+				// from bill";
+				// ResultSet res = stat.executeQuery(qry);
+				// if (res.next()) {
+				// JSONObject tots = new JSONObject();
+				// tots.put("sales", res.getString(1));
+				// tots.put("paid", res.getString(2));
+				// tots.put("prin", res.getString(3));
+				// tots.put("credit", res.getString(4));
+				/// int shotage = res.getInt(5);
+				// int exx = res.getInt(6);
+				// int sh = 0;
+				// int exs = 0;
+				// sh = shotage - exx;
+				// exs = exx - shotage;
+				// if (exs < sh) {
+				// tots.put("Shortage", sh);
+				// } else {
+				// tots.put("Excess", exs);
+				// }
+				// list.put(tots);
+				// }
+				BillClass listbill = new BillClass();
+				list = listbill.listbill();
 			} catch (Exception e) {
 				JSONObject error = new JSONObject();
 				list.put(error);
@@ -213,95 +216,114 @@ public class BillServlet extends HttpServlet {
 			String usname = request.getParameter("users");
 			JSONObject usern = new JSONObject();
 			try {
-				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				Statement stat = connection.createStatement();
-				String queryname = "select user from reg where user='" + usname + "'";
-				ResultSet rst = stat.executeQuery(queryname);
-				if (rst.next()) {
-					usern.put("user", rst.getString(1));
-				}
+				// Class.forName(BillConstant.MYSQL_DRIVER);
+				// Connection connection = DriverManager.getConnection(URL,
+				// BillConstant.USERNAME, BillConstant.PASSWORD);
+				// Statement stat = connection.createStatement();
+				// String queryname = "select user from reg where user='" +
+				// usname + "'";
+				// ResultSet rst = stat.executeQuery(queryname);
+				// if (rst.next()) {
+				// usern.put("user", rst.getString(1));
+				// }
+				BillClass userlogin = new BillClass();
+				usern = userlogin.getuser(usname);
 				usern.put("status", 1);
 				usern.put("message", usname);
 			} catch (Exception e) {
 				usern.put("status", 0);
 				e.printStackTrace();
+				usern.put("message", e.getMessage());
 
 			}
 			response.getWriter().print(usern);
 		} else if (operation.equals("oldbill")) {
 			JSONArray old = new JSONArray();
 			try {
-				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection connection = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				Statement statement = connection.createStatement();
-				String query = "select * from oldbill";
-				ResultSet res = statement.executeQuery(query);
-				while (res.next()) {
-					JSONObject obj = new JSONObject();
-					obj.put("bno ", res.getString(1));
-					obj.put("sale", res.getInt(2));
-					obj.put("paids", res.getInt(3));
-					obj.put("prins", res.getInt(4));
-					obj.put("cred", res.getInt(5));
-					obj.put("shor", res.getInt(6));
-					obj.put("ex", res.getInt(7));
-					obj.put("date", res.getInt(8));
-					obj.put("cdates", res.getInt(9));
-					obj.put("status", 1);
-					old.put(obj);
-				}
+				// Class.forName(BillConstant.MYSQL_DRIVER);
+				// Connection connection = DriverManager.getConnection(URL,
+				// BillConstant.USERNAME, BillConstant.PASSWORD);
+				// Statement statement = connection.createStatement();
+				// String query = "select * from oldbill";
+				// ResultSet res = statement.executeQuery(query);
+				// while (res.next()) {
+				// JSONObject obj = new JSONObject();
+				// obj.put("bno ", res.getString(1));
+				// obj.put("sale", res.getInt(2));
+				// obj.put("paids", res.getInt(3));
+				// obj.put("prins", res.getInt(4));
+				// obj.put("cred", res.getInt(5));
+				// obj.put("shor", res.getInt(6));
+				// obj.put("ex", res.getInt(7));
+				// obj.put("date", res.getInt(8));
+				// obj.put("cdates", res.getInt(9));
+				// obj.put("status", 1);
+				// old.put(obj);
+				// }
+				BillClass obill = new BillClass();
+				old = obill.oldbilllist();
 			} catch (Exception e) {
 				JSONObject error = new JSONObject();
 				error.put("status", 0);
 				old.put(error);
+				error.put("message", e.getMessage());
 			}
 			response.getWriter().print(old);
 		} else if (operation.equals("getcedit")) {
 			String bno = request.getParameter("billno");
+			int pais = Integer.parseInt(request.getParameter("pais"));
+			String dat = request.getParameter("dat");
 			JSONObject cred = new JSONObject();
 			try {
-				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection conn = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				Statement stat = conn.createStatement();
-				String query = "select  * from bill where billno=" + bno;
-				ResultSet rs = stat.executeQuery(query);
-				if (rs.next()) {
-					// String bills = rs.getString(1);
-					String bilno = rs.getString(1);
-					int sal = rs.getInt(2);
-					int pai = rs.getInt(3);
-					int prins = rs.getInt(4);
-					int crd = rs.getInt(5);
-					int shor = rs.getInt(6);
-					int exs = rs.getInt(7);
-					String dates = rs.getString(8);
-					String cdate = rs.getString(9);
-					int tot = rs.getInt(10);
+				// Class.forName(BillConstant.MYSQL_DRIVER);
+				// Connection conn = DriverManager.getConnection(URL,
+				// BillConstant.USERNAME, BillConstant.PASSWORD);
+				// Statement stat = conn.createStatement();
+				// String query = "select * from bill where billno=" + bno;
+				// ResultSet rs = stat.executeQuery(query);
+				// if (rs.next()) {
+				// String bills = rs.getString(1);
+				// String bilno = rs.getString(1);
+				// int sal = rs.getInt(2);
+				// int pai = rs.getInt(3);
+				// int prins = rs.getInt(4);
+				// int crd = rs.getInt(5);
+				// int shor = rs.getInt(6);
+				// int exs = rs.getInt(7);
+				// String dates = rs.getString(8);
+				// String cdate = rs.getString(9);
+				// int tot = rs.getInt(10);
 
-					try {
-						String quey = "insert into oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
-								+ bilno + "'," + sal + "," + pai + "," + prins + "," + crd + "," + shor + "," + exs
-								+ ",'" + dates + "','" + cdate + "'," + tot + ")";
-						stat.executeUpdate(quey);
-						int pais = Integer.parseInt(request.getParameter("pais"));
-						String dat = request.getParameter("dat");
-						int paidss = 0;
-						int newcrt = 0;
-						paidss = pai + pais;
-						newcrt = crd - pais;
-						// Statement stats = conn.createStatement();
-						String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + ", dates='" + dat
-								+ "' where billno=" + bno;
-						stat.execute(qry);
-						cred.put("status", 1);
+				// try {
+				// String quey = "insert into
+				// oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
+				// + bilno + "'," + sal + "," + pai + "," + prins + "," + crd +
+				// "," + shor + "," + exs
+				// + ",'" + dates + "','" + cdate + "'," + tot + ")";
+				// stat.executeUpdate(quey);
+				// int pais = Integer.parseInt(request.getParameter("pais"));
+				// String dat = request.getParameter("dat");
+				// int paidss = 0;
+				// int newcrt = 0;
+				// paidss = pai + pais;
+				// newcrt = crd - pais;
+				// Statement stats = conn.createStatement();
+				// String qry = "update bill set paid=" + paidss + ",credit=" +
+				// newcrt + ", dates='" + dat
+				// + "' where billno=" + bno;
+				// stat.execute(qry);
+				// cred.put("status", 1);
 
-					} catch (Exception e) {
-						cred.put("status", 0);
-						e.printStackTrace();
-						cred.put("message", e.getMessage());
-					}
-				}
+				// } catch (Exception e) {
+				// cred.put("status", 0);
+				// e.printStackTrace();
+				// cred.put("message", e.getMessage());
+				// }
+				// }
+				BillClass send = new BillClass();
+				
+				send.getcreditbill(bno, pais, dat);
+				cred.put("status", 1);
 			} catch (Exception e) {
 				cred.put("status", 0);
 				e.printStackTrace();
@@ -312,18 +334,22 @@ public class BillServlet extends HttpServlet {
 			String bno = request.getParameter("bno");
 			JSONObject obj = new JSONObject();
 			try {
-				Class.forName(BillConstant.MYSQL_DRIVER);
-				Connection conn = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				Statement stat = conn.createStatement();
-				String query = "select sales,paid,credit,dates from bill where billno=" + bno;
-				ResultSet res = stat.executeQuery(query);
-				if (res.next()) {
-					obj.put("sal", res.getInt(1));
-					obj.put("pai", res.getInt(2));
-					obj.put("cred", res.getInt(3));
-					obj.put("dat", res.getString(4));
-					obj.put("states", 1);
-				}
+				//Class.forName(BillConstant.MYSQL_DRIVER);
+				//Connection conn = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
+				//Statement stat = conn.createStatement();
+				//String query = "select sales,paid,credit,dates from bill where billno=" + bno;
+				//ResultSet res = stat.executeQuery(query);
+				//if (res.next()) {
+					//obj.put("sal", res.getInt(1));
+					//obj.put("pai", res.getInt(2));
+					//obj.put("cred", res.getInt(3));
+					//obj.put("dat", res.getString(4));
+					//obj.put("states", 1);
+               BillClass cred=new BillClass();
+				
+				obj=cred.getcredit(bno);
+				obj.put("states",1);
+				
 			} catch (Exception e) {
 				obj.put("states", 0);
 				e.printStackTrace();

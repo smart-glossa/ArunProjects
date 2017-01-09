@@ -179,10 +179,11 @@ public class BillClass {
 		}
 		return val;
 	}
-  public JSONArray listbill() throws SQLException{
-	  JSONArray list=new JSONArray();
-	  try {
-		  String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
+
+	public JSONArray listbill() throws SQLException {
+		JSONArray list = new JSONArray();
+		try {
+			String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
 			ResultSet res = stat.executeQuery(qry);
 			if (res.next()) {
 				JSONObject tots = new JSONObject();
@@ -203,11 +204,107 @@ public class BillClass {
 				}
 				list.put(tots);
 			}
+		} finally {
+			closeConnection();
+		}
+		return list;
+	}
+
+	public JSONObject getuser(String usname) throws SQLException {
+		JSONObject user = new JSONObject();
+		try {
+			String queryname = "select user from reg where user='" + usname + "'";
+			ResultSet rst = stat.executeQuery(queryname);
+			if (rst.next()) {
+				user.put("user", rst.getString(1));
+			}
+		} finally {
+			closeConnection();
+		}
+		return user;
+	}
+
+	public JSONArray oldbilllist() throws SQLException {
+		JSONArray old = new JSONArray();
+		try {
+			String query = "select * from oldbill";
+			ResultSet res = stat.executeQuery(query);
+			while (res.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("bno ", res.getString(1));
+				obj.put("sale", res.getInt(2));
+				obj.put("paids", res.getInt(3));
+				obj.put("prins", res.getInt(4));
+				obj.put("cred", res.getInt(5));
+				obj.put("shor", res.getInt(6));
+				obj.put("ex", res.getInt(7));
+				obj.put("date", res.getString(8));
+				obj.put("cdates", res.getString(9));
+				obj.put("status", 1);
+				old.put(obj);
+			}
+		} finally {
+			closeConnection();
+		}
+		return old;
+	}
+
+	public void getcreditbill(String bno, int pais, String dat) throws SQLException {
+		try {
+			String query = "select  * from bill where billno=" + bno;
+			ResultSet rs = stat.executeQuery(query);
+			if (rs.next()) {
+				// String bills = rs.getString(1);
+				String bilno = rs.getString(1);
+				int sal = rs.getInt(2);
+				int pai = rs.getInt(3);
+				int prins = rs.getInt(4);
+				int crd = rs.getInt(5);
+				int shor = rs.getInt(6);
+				int exs = rs.getInt(7);
+				String dates = rs.getString(8);
+				String cdate = rs.getString(9);
+				int tot = rs.getInt(10);
+
+				try {
+					String quey = "insert into oldbill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('"
+							+ bilno + "'," + sal + "," + pai + "," + prins + "," + crd + "," + shor + "," + exs + ",'"
+							+ dates + "','" + cdate + "'," + tot + ")";
+					stat.executeUpdate(quey);
+
+					int paidss = 0;
+					int newcrt = 0;
+					paidss = pai + pais;
+					newcrt = crd - pais;
+					// Statement stats = conn.createStatement();
+					String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + ", dates='" + dat
+							+ "' where billno=" + bno;
+					stat.execute(qry);
+				} catch (Exception e) {
+
+				}
+			}
+		} finally {
+			closeConnection();
+		}
+	}
+ public JSONObject getcredit(String bno) throws SQLException{
+	 JSONObject obj=new JSONObject();
+	 try {
+		 String query = "select sales,paid,credit,dates from bill where billno=" + bno;
+			ResultSet res = stat.executeQuery(query);
+			if (res.next()) {
+				obj.put("sal", res.getInt(1));
+				obj.put("pai", res.getInt(2));
+				obj.put("cred", res.getInt(3));
+				obj.put("dat", res.getString(4));
+				//obj.put("states", 1);
+			}
 	} finally {
 		closeConnection();
 	}
-	return list;
-  }
+	return obj;
+ }
 	private void openConnection() throws Exception {
 		Class.forName(BillConstant.MYSQL_DRIVER);
 		// String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +
