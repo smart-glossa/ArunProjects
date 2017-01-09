@@ -307,6 +307,28 @@ public class BillClass {
 	}
 	return obj;
  }
+ public JSONArray getdate(String cdate) throws SQLException{
+	 JSONArray obj=new JSONArray();
+	 try {
+		 String query = "select * from bill where cdate='"+cdate+"'";
+			ResultSet rs = stat.executeQuery(query);
+			while (rs.next()) {
+				JSONObject day = new JSONObject();
+				day.put("bnoamt", rs.getString(1));
+				day.put("salamt", rs.getInt(2));
+				day.put("paidamt", rs.getInt(3));
+				day.put("painamt", rs.getInt(4));
+				day.put("credamt", rs.getInt(5));
+				day.put("storamt", rs.getInt(6));
+				day.put("examt", rs.getInt(7));
+				obj.put(day);
+
+			}
+	} finally {
+		closeConnection();
+	}
+	return obj;
+ }
 	private void openConnection() throws Exception {
 		Class.forName(BillConstant.MYSQL_DRIVER);
 		// String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" +

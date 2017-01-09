@@ -3,9 +3,9 @@ $(document).ready(function() {
 	    	//postToServer("logout");
 	    	document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	    	window.location.href = '/arun/';
-	    });     //http://localhost:8080/arun/bill?operation=add&abillno&asales=7878&apaid=500&aprinciple=454&date09/10/2000
+	    })   
   
-  $(document).on("click","#submit",function(key) {
+  $(document).on("click","#addsubmit",function(key) {
     var billno = $('#abillno').val();
     var sales = $('#asales').val();
     var paid = $('#apaid').val();
@@ -55,7 +55,7 @@ $(document).ready(function() {
         $('#asales').val("");
         $('#apaid').val("");
         $('#aprinciple').val("");
-               totalbill() ;
+              // totalbill() ;
            } else if(result.status == 0) {
             alert("Error occurs");
         }

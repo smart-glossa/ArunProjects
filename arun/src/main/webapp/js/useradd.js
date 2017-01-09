@@ -22,9 +22,9 @@ function billdetails() {
 	+ '<tr><td>PaidAmount<span>*</span>:</td><td> <input type=text id="apaid" class="chars" placeholder="PaidAmount.." class="chars"></td></tr>'
 	+ '<tr><td>PrincipleAmount<span>*</span>:</td><td> <input type=text id="aprinciple" class="chars" placeholder="PrincipleAmount.." class="chars"></td></tr>'
 	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
-	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
+	+ '<tr><td></td><td><button id="addsubmit">SUBMIT</button>&nbsp;&nbsp;'
 	+ '<button id="update">UPDATE</button></td><tr>'
-	+'</table>';
+	+'</table>'
 	
 	$('.myDIV1')[0].innerHTML = html;
 	return div;
@@ -75,12 +75,11 @@ function getall() {
 	div.className = "get";
 	var paidVar="";
 	paidVar += "<div class=\"dropdown\">";
-	paidVar += "<div class=\"dropdtn\" id=\"divs\"><img src=\"img/5.png\" width=\"25\">BillTotal<\/div>";
+	paidVar += "<div class=\"dropdtn\" id=\"divs\"><img src=\"img/5.png\" width=\"20px\">BillTotal<\/div>";
 	paidVar += "<div class=\"dropdown-content\">";
-	paidVar += "<a href=\"#\"><div onclick=\"totalbill()\"><img src=\"img/13.png\">Total<\/div><\/a>";
-	paidVar += "<a href=\"#\"><div onclick=\"displaybill()\"><img src=\"img/home.png\">AllBillDetail<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"totalbill()\">Total<\/div><\/a>";
+	paidVar += "<a href=\"#\"><div onclick=\"displaybill()\">AllBillDetail<\/div><\/a>";
 	paidVar += "<a href=\"#\"><div onclick=\"myFunction3()\">Month<\/div><\/a>";
-	//paidVar += "<a href=\"#\"><div onclick=\"myFunction4()\">Year<\/div><\/a>";
 	paidVar += "<\/div>";
 	paidVar += "<\/div>";
 	div.innerHTML = paidVar;
