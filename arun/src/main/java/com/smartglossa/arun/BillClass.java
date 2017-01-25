@@ -133,7 +133,10 @@ public class BillClass {
 
 	public void adduser(String name, String user, String pass) throws SQLException {
 		try {
-			String query = "insert into reg(name,user,password)values('" + name + "','" + user + "','" + pass + "')";
+			
+			String qry="create table "+user+"(name varchar(255),user varchar(255),password varchar(255))";
+			stat.executeUpdate(qry);
+			String query = "insert into "+user+"(name,user,password)values('" + name + "','" + user + "','" + pass + "')";
 			stat.execute(query);
 		} finally {
 			closeConnection();
@@ -143,7 +146,7 @@ public class BillClass {
 	public JSONObject loginbill(String user, String pass) throws SQLException {
 		JSONObject log = new JSONObject();
 		try {
-			String query = "select user from reg where user='" + user + "' AND password='" + pass + "'";
+			String query = "select user from "+user+" where user='" + user + "' AND password='" + pass + "'";
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 				if (user != "") {
@@ -347,7 +350,7 @@ public class BillClass {
 			String from = new SimpleDateFormat("yyyy-MM-dd").format(date);
 			dat = new SimpleDateFormat("MM/dd/yyyy").parse(todate);
 			String todates = new SimpleDateFormat("yyyy-MM-dd").format(date);
-			String query = "select * from bill where cdate='" + from + "' AND cdate='" + todates + "'";
+			String query = "select * from bill where cdate='" + from + "' to cdate='" + todates + "'";
 			ResultSet res = stat.executeQuery(query);
 			while (res.next()) {
 				JSONObject to = new JSONObject();

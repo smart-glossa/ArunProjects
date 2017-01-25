@@ -170,6 +170,36 @@ $.ajax({
 }).fail(function(result) {
     console.log(result);
 });
+   $(document).on('click','#datesub',function(){
+		var cdate = $('#cdate').val();
+		//http://localhost:8080/arun/bill?operation=daybill&cdate=01/03/2017
+			var url = "/arun/bill?operation=daybill&cdate="+ cdate;
+			$.ajax({
+				url:url,
+				type:'POST'
+			})
+			.done(function(result){
+				res = JSON.parse(result);
+		    	  var table = '<table>'
+		    		  table += '<tr><th>BillNo</th><th>SalesAmount</th><th>PaidAmount</th><th>PrincipleAmount</th><th>CreditAmount</th><th>ShortageAmount</th><th>ExcessAmount</th></tr>';
+		    	  if(result!="undefined"){
+						for (var i = 0; i < res.length; i++) {
+		    	    	  table += '<tr class="row">'
+		    	    	  table += '<td>'+res.bnoamt +'</td>';
+		    	    	  table += '<td >'+ res.salamt +'</td>';
+		    	    	  table += '<td>'+ res.paidamt +'</td>';
+		    	    	  table += '<td>'+ res.painamt +'</td>';
+		    	    	  table += '<td>'+ res.credamt +'</td>';
+		    	    	  table += '<td>'+ res.storamt +'</td>';
+		    	    	  table += '<td>'+ res.examt +'</td>';
+		    	    	  table += '<td>'+ res.dates +'</td>';
+						}
+		    	  }
+		                  table += '</table>';  
+		                  $('.myDIV1')[0].innerHTML = table;
+			
+	});
+});
 
 })
   /*keyup and keydown*/

@@ -128,9 +128,8 @@ function dateslist(){
 	var html = '<h3 class="fn">Date </h3>'
 	+ '<table class="sss">'
 	+  '<span id="errmsg"></span>'
-	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="date" class="add"></td></tr>'
-	+ '<tr><td></td><td><button id="submit">SUBMIT</button>&nbsp;&nbsp;'
-	+ '<button id="update">UPDATE</button></td><tr>'
+	+ '<tr><td>Date<span>*</span>:</td><td> <input type=date id="cdate" class="add"></td></tr>'
+	+ '<tr><td></td><td><button id="datesub">SUBMIT</button>&nbsp;&nbsp<tr>'
 	+'</table>';
 	$('.myDIV1')[0].innerHTML = html;
 	return div;
