@@ -141,7 +141,7 @@ $(document).ready(function() {
 				var resp = JSON.parse(result);
 				if (resp.status == "success") {
 					//alert("successlly login"+user);
-					document.cookie = "user=" + user;
+					document.cookie = "userId=" + resp.username;
 					 window.location.href = 'bill.html';
 					
 					//$(".myDIV1")[0].appendChild(paidAmount());

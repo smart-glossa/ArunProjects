@@ -8,8 +8,10 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +29,7 @@ public class BillServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		JSONObject bill = new JSONObject();
 		String URL = "jdbc:mysql://" + BillConstant.MYSQL_SERVER + "/" + BillConstant.DATABASE_NAME;
 		// String URL = "jdbc:mysql://localhost:3306/arun";
@@ -54,9 +56,18 @@ public class BillServlet extends HttpServlet {
 			} else {
 				tot = ex - shortt;
 			}
+
 			try {
 				BillClass addbill = new BillClass();
-				addbill.addbill(billno, salesamt, paid, prple, credit, shortt, ex, date, tot);
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (int i = 0; i < cookies.length; i++) {
+						Cookie cookie = cookies[i];
+						// String cookieName = cookie.getName();
+						String cookieId = cookies[i].getValue();
+						addbill.addbill(billno, salesamt, paid, prple, credit, shortt, ex, date, tot, cookieId);
+					}
+				}
 				bill.put("status", 1);
 			} catch (Exception e) {
 				bill.put("status", 0);
@@ -89,8 +100,11 @@ public class BillServlet extends HttpServlet {
 			}
 			try {
 				BillClass updatebill = new BillClass();
-				updatebill.updatebill(billno, salesamt, paid, prple, credit, shortt, ex, date, tot);
+				
+						updatebill.updatebill(billno, salesamt, paid, prple, credit, shortt, ex, date, tot);
+					
 				update.put("status", 1);
+
 			} catch (Exception e) {
 				update.put("status", 0);
 				e.printStackTrace();
@@ -102,7 +116,15 @@ public class BillServlet extends HttpServlet {
 			String billno = request.getParameter("abillno");
 			try {
 				BillClass gone = new BillClass();
-				one = gone.getbill(billno);
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (int i = 0; i < cookies.length; i++) {
+						Cookie cookie = cookies[i];
+						// String cookieName = cookie.getName();
+						String cookieId = cookies[i].getValue();
+						one = gone.getbill(billno, cookieId);
+					}
+				}
 			} catch (Exception e) {
 				one.put("status", 0);
 				e.printStackTrace();
@@ -112,8 +134,15 @@ public class BillServlet extends HttpServlet {
 			JSONArray all = new JSONArray();
 			try {
 				BillClass getall = new BillClass();
-				all = getall.getAllbill();
-
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (int i = 0; i < cookies.length; i++) {
+						Cookie cookie = cookies[i];
+						// String cookieName = cookie.getName();
+						String cookieId = cookies[i].getValue();
+				all = getall.getAllbill(cookieId);
+					}
+				}
 			} catch (Exception e) {
 				JSONObject error = new JSONObject();
 				error.put("status", 0);
@@ -126,7 +155,16 @@ public class BillServlet extends HttpServlet {
 			String billno = request.getParameter("abillno");
 			try {
 				BillClass deletebill = new BillClass();
-				deletebill.deletebill(billno);
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (int i = 0; i < cookies.length; i++) {
+						Cookie cookie = cookies[i];
+						// String cookieName = cookie.getName();
+						String cookieId = cookies[i].getValue();
+					
+				deletebill.deletebill(billno,cookieId);
+					}
+				}
 				del.put("status", 1);
 			} catch (Exception e) {
 				del.put("status", 0);
@@ -139,9 +177,11 @@ public class BillServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			String user = request.getParameter("username");
 			String pass = request.getParameter("password");
+			Random rand = new Random();
+			int ran = rand.nextInt(500000000);
 			try {
 				BillClass adduser = new BillClass();
-				adduser.adduser(name, user, pass);
+				adduser.adduser(name, user, pass, ran);
 				us.put("status", 1);
 
 			} catch (Exception e) {
@@ -180,7 +220,15 @@ public class BillServlet extends HttpServlet {
 			JSONArray list = new JSONArray();
 			try {
 				BillClass listbill = new BillClass();
-				list = listbill.listbill();
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (int i = 0; i < cookies.length; i++) {
+						Cookie cookie = cookies[i];
+						// String cookieName = cookie.getName();
+						String cookieId = cookies[i].getValue();
+				list = listbill.listbill( cookieId);
+					}
+				}
 			} catch (Exception e) {
 				JSONObject error = new JSONObject();
 				list.put(error);
@@ -280,9 +328,9 @@ public class BillServlet extends HttpServlet {
 			response.getWriter().print(obj);
 		} else if (operation.equals("daybill")) {
 			String cdate = request.getParameter("cdate");
-			
+
 			JSONArray objj = new JSONArray();
-			
+
 			try {
 				BillClass dd = new BillClass();
 				objj = dd.getdate(cdate);
@@ -299,25 +347,27 @@ public class BillServlet extends HttpServlet {
 			String todate = request.getParameter("to");
 			JSONArray tofrom = new JSONArray();
 			try {
-				//Class.forName(BillConstant.MYSQL_DRIVER);
-				//Connection con = DriverManager.getConnection(URL, BillConstant.USERNAME, BillConstant.PASSWORD);
-				//Statement stat = con.createStatement();
-				//String query = "select * from bill where cdate=" + fromdate + " AND cdate=" + todate + "";
-				//ResultSet res = stat.executeQuery(query);
-				//while (res.next()) {
-					//JSONObject to = new JSONObject();
-					//to.put("bnoamt", res.getString(1));
-					//to.put("salamt", res.getInt(2));
-					//to.put("paidamt", res.getInt(3));
-					//to.put("painamt", res.getInt(4));
-					//to.put("credamt", res.getInt(5));
-					//to.put("storamt", res.getInt(6));
-					//to.put("examt", res.getInt(7));
-					//tofrom.put(to);
+				// Class.forName(BillConstant.MYSQL_DRIVER);
+				// Connection con = DriverManager.getConnection(URL,
+				// BillConstant.USERNAME, BillConstant.PASSWORD);
+				// Statement stat = con.createStatement();
+				// String query = "select * from bill where cdate=" + fromdate +
+				// " AND cdate=" + todate + "";
+				// ResultSet res = stat.executeQuery(query);
+				// while (res.next()) {
+				// JSONObject to = new JSONObject();
+				// to.put("bnoamt", res.getString(1));
+				// to.put("salamt", res.getInt(2));
+				// to.put("paidamt", res.getInt(3));
+				// to.put("painamt", res.getInt(4));
+				// to.put("credamt", res.getInt(5));
+				// to.put("storamt", res.getInt(6));
+				// to.put("examt", res.getInt(7));
+				// tofrom.put(to);
 
-				//}
-				BillClass to=new BillClass();
-				tofrom=to.fromto(fromdate, todate);
+				// }
+				BillClass to = new BillClass();
+				tofrom = to.fromto(fromdate, todate);
 			} catch (Exception e) {
 				JSONObject ex = new JSONObject();
 				ex.put("status", 0);

@@ -31,8 +31,22 @@ function displaybill() {
 
 		});
 
-	}
-
+	
+$(document).on("mousemove", ".billno", function(key) {
+	var billno = $(this).val();
+	var url="/arun/bill?operation=getOne&abillno=" + billno;
+	$.ajax({
+		url : url,
+		type : 'POST'
+	})
+.done(
+		function(result) {
+			var array = JSON.parse(result);
+	
+		var query = "<div class='names'>";
+		})
+})
+}
 	function displaybills() {
 		var url = "/arun/bill?operation=total";
 		
@@ -98,3 +112,5 @@ function displaybill() {
 		});
 
 	} 
+		
+		

@@ -18,17 +18,19 @@ public class BillClass {
 	Statement stat = null;
 	ResultSet res = null;
 
+	// int ran;
 	// SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	public BillClass() throws Exception {
 		openConnection();
 	}
 
 	public void addbill(String billno, int salesamt, int paid, int prple, int credit, int shortt, int ex, String date,
-			int tot) throws SQLException {
+			int tot, String cookieId) throws SQLException {
+
 		try {
-			String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot)values('" + billno
-					+ "'," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex + ",'" + date
-					+ "',now()," + tot + ")";
+			String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot,userId)values('"
+					+ billno + "'," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex
+					+ ",'" + date + "',now()," + tot + "," + cookieId + ")";
 			stat.execute(query);
 		} finally {
 			closeConnection();
@@ -71,10 +73,10 @@ public class BillClass {
 		}
 	}
 
-	public JSONObject getbill(String billno) throws JSONException, SQLException {
+	public JSONObject getbill(String billno, String cookieId) throws JSONException, SQLException {
 		JSONObject one = new JSONObject();
 		try {
-			String query = "select *  from bill where billno='" + billno + "'";
+			String query = "select *  from bill where billno='" + billno + "'AND userId=" + cookieId;
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 
@@ -96,10 +98,10 @@ public class BillClass {
 
 	}
 
-	public JSONArray getAllbill() throws SQLException {
+	public JSONArray getAllbill(String cookieId) throws SQLException {
 		JSONArray obj = new JSONArray();
 		try {
-			String query = "select * from bill";
+			String query = "select * from bill where userId="+cookieId;
 			ResultSet res = stat.executeQuery(query);
 			while (res.next()) {
 				JSONObject getall = new JSONObject();
@@ -121,9 +123,9 @@ public class BillClass {
 		return obj;
 	}
 
-	public void deletebill(String billno) throws SQLException {
+	public void deletebill(String billno,String cookieId) throws SQLException {
 		try {
-			String query = "delete from bill where billno='" + billno + "'";
+			String query = "delete from bill where billno='" + billno + "' AND "+cookieId;
 			stat.execute(query);
 		} finally {
 			closeConnection();
@@ -131,12 +133,10 @@ public class BillClass {
 		}
 	}
 
-	public void adduser(String name, String user, String pass) throws SQLException {
+	public void adduser(String name, String user, String pass, int ran) throws SQLException {
 		try {
-			
-			String qry="create table "+user+"(name varchar(255),user varchar(255),password varchar(255))";
-			stat.executeUpdate(qry);
-			String query = "insert into "+user+"(name,user,password)values('" + name + "','" + user + "','" + pass + "')";
+			String query = "insert into reg(name,user,password,random)values('" + name + "','" + user + "','" + pass
+					+ "'," + ran + ")";
 			stat.execute(query);
 		} finally {
 			closeConnection();
@@ -146,11 +146,11 @@ public class BillClass {
 	public JSONObject loginbill(String user, String pass) throws SQLException {
 		JSONObject log = new JSONObject();
 		try {
-			String query = "select user from "+user+" where user='" + user + "' AND password='" + pass + "'";
+			String query = "select random from reg where user='" + user + "' AND password='" + pass + "'";
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 				if (user != "") {
-					log.put("username", rs.getString(1));
+					log.put("username", rs.getInt(1));
 					log.put("status", "success");
 				}
 			} else {
@@ -187,10 +187,10 @@ public class BillClass {
 		return val;
 	}
 
-	public JSONArray listbill() throws SQLException {
+	public JSONArray listbill(String cookieId) throws SQLException {
 		JSONArray list = new JSONArray();
 		try {
-			String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
+			String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill where userId="+cookieId;
 			ResultSet res = stat.executeQuery(qry);
 			if (res.next()) {
 				JSONObject tots = new JSONObject();
@@ -220,10 +220,11 @@ public class BillClass {
 	public JSONObject getuser(String usname) throws SQLException {
 		JSONObject user = new JSONObject();
 		try {
-			String queryname = "select user from reg where user='" + usname + "'";
+			String queryname = "select random from reg where user='" + usname + "'";
 			ResultSet rst = stat.executeQuery(queryname);
 			if (rst.next()) {
 				user.put("user", rst.getString(1));
+
 			}
 		} finally {
 			closeConnection();
@@ -367,6 +368,16 @@ public class BillClass {
 			closeConnection();
 		}
 		return fromto;
+	}
+
+	public void createTable() throws SQLException {
+		try {
+			// String qry="create table "+user+"and "+password+"(name
+			// varchar(255),user varchar(255),password varchar(255))";
+			// stat.executeUpdate(qry);
+		} finally {
+			// TODO: handle finally clause
+		}
 	}
 
 	private void openConnection() throws Exception {
