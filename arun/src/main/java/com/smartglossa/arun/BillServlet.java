@@ -100,9 +100,9 @@ public class BillServlet extends HttpServlet {
 			}
 			try {
 				BillClass updatebill = new BillClass();
-				
-						updatebill.updatebill(billno, salesamt, paid, prple, credit, shortt, ex, date, tot);
-					
+
+				updatebill.updatebill(billno, salesamt, paid, prple, credit, shortt, ex, date, tot);
+
 				update.put("status", 1);
 
 			} catch (Exception e) {
@@ -140,7 +140,7 @@ public class BillServlet extends HttpServlet {
 						Cookie cookie = cookies[i];
 						// String cookieName = cookie.getName();
 						String cookieId = cookies[i].getValue();
-				all = getall.getAllbill(cookieId);
+						all = getall.getAllbill(cookieId);
 					}
 				}
 			} catch (Exception e) {
@@ -161,8 +161,8 @@ public class BillServlet extends HttpServlet {
 						Cookie cookie = cookies[i];
 						// String cookieName = cookie.getName();
 						String cookieId = cookies[i].getValue();
-					
-				deletebill.deletebill(billno,cookieId);
+
+						deletebill.deletebill(billno, cookieId);
 					}
 				}
 				del.put("status", 1);
@@ -226,7 +226,7 @@ public class BillServlet extends HttpServlet {
 						Cookie cookie = cookies[i];
 						// String cookieName = cookie.getName();
 						String cookieId = cookies[i].getValue();
-				list = listbill.listbill( cookieId);
+						list = listbill.listbill(cookieId);
 					}
 				}
 			} catch (Exception e) {

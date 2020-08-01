@@ -28,7 +28,7 @@ public class BillClass {
 			int tot, String cookieId) throws SQLException {
 
 		try {
-			String query = "insert into bill(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot,userId)values('"
+			String query = "insert into bills(billno,sales,paid,prin,credit,shortt,ex,dates,cdate,tot,userId)values('"
 					+ billno + "'," + salesamt + "," + paid + "," + prple + "," + credit + "," + shortt + "," + ex
 					+ ",'" + date + "',now()," + tot + "," + cookieId + ")";
 			stat.execute(query);
@@ -40,7 +40,7 @@ public class BillClass {
 	public void updatebill(String billno, int salesamt, int paid, int prple, int credit, int shortt, int ex,
 			String date, int tot) throws SQLException {
 		try {
-			String querys = "select * from bill where billno=" + billno;
+			String querys = "select * from bills where billno=" + billno;
 			ResultSet rs = stat.executeQuery(querys);
 			if (rs == null) {
 				return;
@@ -61,7 +61,7 @@ public class BillClass {
 							+ bilno + "'," + sal + "," + paids + "," + prins + "," + cred + "," + shor + "," + exs
 							+ ",'" + dates + "','" + cdate + "'," + tots + ")";
 					stat.executeUpdate(query);
-					String query2 = "update bill set sales=" + salesamt + ",paid=" + paid + ",prin=" + prple
+					String query2 = "update bills set sales=" + salesamt + ",paid=" + paid + ",prin=" + prple
 							+ ",credit=" + credit + ",shortt=" + shortt + ",ex=" + ex + ",dates='" + date
 							+ "' where billno='" + billno + "'";
 					stat.execute(query2);
@@ -76,19 +76,19 @@ public class BillClass {
 	public JSONObject getbill(String billno, String cookieId) throws JSONException, SQLException {
 		JSONObject one = new JSONObject();
 		try {
-			String query = "select *  from bill where billno='" + billno + "'AND userId=" + cookieId;
+			String query = "select *  from bills where billno='" + billno + "'AND userId=" + cookieId;
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 
-				one.put("billNO", rs.getString(1));
-				one.put("sales", rs.getInt(2));
-				one.put("paid", rs.getInt(3));
-				one.put("prin", rs.getInt(4));
-				one.put("credit", rs.getInt(5));
-				one.put("shortage", rs.getInt(6));
-				one.put("Excess", rs.getInt(7));
-				one.put("date", rs.getString(8));
-				one.put("tot", rs.getInt(9));
+				//one.put("billNO", rs.getString(1));
+				one.put("sales", rs.getInt(1));
+				one.put("paid", rs.getInt(2));
+				one.put("prin", rs.getInt(3));
+				one.put("credit", rs.getInt(4));
+				one.put("shortage", rs.getInt(5));
+				one.put("Excess", rs.getInt(6));
+				one.put("date", rs.getString(7));
+				one.put("tot", rs.getInt(8));
 
 			}
 		} finally {
@@ -101,7 +101,7 @@ public class BillClass {
 	public JSONArray getAllbill(String cookieId) throws SQLException {
 		JSONArray obj = new JSONArray();
 		try {
-			String query = "select * from bill where userId="+cookieId;
+			String query = "select * from bills where userId="+cookieId;
 			ResultSet res = stat.executeQuery(query);
 			while (res.next()) {
 				JSONObject getall = new JSONObject();
@@ -125,7 +125,7 @@ public class BillClass {
 
 	public void deletebill(String billno,String cookieId) throws SQLException {
 		try {
-			String query = "delete from bill where billno='" + billno + "' AND "+cookieId;
+			String query = "delete from bills where billno='" + billno + "' AND "+cookieId;
 			stat.execute(query);
 		} finally {
 			closeConnection();
@@ -168,7 +168,7 @@ public class BillClass {
 	public JSONArray total() throws SQLException {
 		JSONArray val = new JSONArray();
 		try {
-			String query = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill";
+			String query = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bills";
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 				JSONObject tot = new JSONObject();
@@ -190,7 +190,7 @@ public class BillClass {
 	public JSONArray listbill(String cookieId) throws SQLException {
 		JSONArray list = new JSONArray();
 		try {
-			String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bill where userId="+cookieId;
+			String qry = "select sum(sales),sum(paid),sum(prin),sum(credit),sum(shortt),sum(ex) from bills where userId="+cookieId;
 			ResultSet res = stat.executeQuery(qry);
 			if (res.next()) {
 				JSONObject tots = new JSONObject();
@@ -259,7 +259,7 @@ public class BillClass {
 
 	public void getcreditbill(String bno, int pais, String dat) throws SQLException {
 		try {
-			String query = "select  * from bill where billno=" + bno;
+			String query = "select  * from bills where billno=" + bno;
 			ResultSet rs = stat.executeQuery(query);
 			if (rs.next()) {
 				// String bills = rs.getString(1);
@@ -285,7 +285,7 @@ public class BillClass {
 					paidss = pai + pais;
 					newcrt = crd - pais;
 					// Statement stats = conn.createStatement();
-					String qry = "update bill set paid=" + paidss + ",credit=" + newcrt + ", dates='" + dat
+					String qry = "update bills set paid=" + paidss + ",credit=" + newcrt + ", dates='" + dat
 							+ "' where billno=" + bno;
 					stat.execute(qry);
 				} catch (Exception e) {
@@ -300,7 +300,7 @@ public class BillClass {
 	public JSONObject getcredit(String bno) throws SQLException {
 		JSONObject obj = new JSONObject();
 		try {
-			String query = "select sales,paid,credit,dates from bill where billno=" + bno;
+			String query = "select sales,paid,credit,dates from bills where billno=" + bno;
 			ResultSet res = stat.executeQuery(query);
 			if (res.next()) {
 				obj.put("sal", res.getInt(1));
@@ -321,7 +321,7 @@ public class BillClass {
 			Date date;
 			date = new SimpleDateFormat("MM/dd/yyyy").parse(cdate);
 			String newDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-			String query = "select * from bill where cdate='" + newDate + "'";
+			String query = "select * from bills where cdate='" + newDate + "'";
 			ResultSet rs = stat.executeQuery(query);
 			while (rs.next()) {
 				JSONObject day = new JSONObject();
